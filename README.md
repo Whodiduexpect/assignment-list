@@ -102,7 +102,7 @@ Added assignment "Some assignment that was not added"
 ```
 To make sure that what we did worked, let's check the list once again
 ```
-python assignment-list.py -list
+python assignment-list.py --list
 ```
 ```
 1. Some assignment that was not added
@@ -112,4 +112,4 @@ This sums up the entire script
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
