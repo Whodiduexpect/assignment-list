@@ -42,7 +42,7 @@ file = open_data("added-assignments", "r")
 added_assignments = file.read().split('\n')
 file.close()
 # Get Student Vue assignments
-studentvue_assignments = ["Test Assignment 1", "Test Assignment 2"]#sv.get_assignments()
+studentvue_assignments = sv.get_assignments()
 # Merge them all in to one list
 assignments = [x for x in added_assignments + studentvue_assignments if x not in completed_assignments]
 
