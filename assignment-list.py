@@ -72,4 +72,6 @@ if args.add:
 	with open_data('added-assignments', 'w') as f:
 		for assignment in added_assignments:
 		   f.write("%s\n" % assignment)
-	print("Added assignment \"%s\"" % args.add) 
+	print("Added assignment \"%s\"" % args.add)
+if not args.add or not args.complete or not args.list:
+    print("Did you mean to do something? Try adding the argument \"--help\"")
