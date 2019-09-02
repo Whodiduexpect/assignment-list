@@ -31,7 +31,7 @@ file.close()
 try:
 	sv = StudentVue(credentials[0],credentials[1],credentials[2])
 except:
-	print("Invalid credentials. Try checking the \"credentials\" file to make sure that it has a valid student id number, password, and district domain, all seperated by commas.")
+	print("Invalid credentials. Try checking \"data/credentials\" to make sure that it has a valid student id number, password, and district domain, all seperated by commas.")
 
 # Read completed assignments from file
 file = open_data("completed-assignments", "r")
