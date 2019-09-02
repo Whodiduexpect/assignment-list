@@ -1,2 +1,2 @@
 # assignment-list
-An assignment manager that uses data from Student Vue
+A school assignment manager based upon data from Student Vue
