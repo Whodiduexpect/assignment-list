@@ -12,7 +12,7 @@ You will need Python 3 installed and working for this script to work.
 
 ### Installing
 
-Clone the repository
+Clone the repository<br>
 Example: Cloning the repository with Git
 ```
 git clone git://github.com/Whodiduexpect/assignment-list.git
