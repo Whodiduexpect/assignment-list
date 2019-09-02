@@ -1,4 +1,4 @@
-# Avoid credential file from being pushed
+# Avoid data files from being pushed
 data/
 
 # Byte-compiled / optimized / DLL files
