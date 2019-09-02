@@ -73,5 +73,5 @@ if args.add:
 		for assignment in added_assignments:
 		   f.write("%s\n" % assignment)
 	print("Added assignment \"%s\"" % args.add)
-if not args.add or not args.complete or not args.list:
+if not args.add and not args.complete and not args.list:
     print("Did you mean to do something? Try adding the argument \"--help\"")
