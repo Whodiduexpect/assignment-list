@@ -39,7 +39,7 @@ Enter your student id number, your password, and your district domain (the first
 ```
 123456,mysupersecurepassword,https://portal.somedistrict.us
 ```
-If you correctly entered your login details, it should output
+If you correctly entered your login details, it should output:
 ```
 Did you mean to do something? Try adding the argument "--help"
 ```
@@ -100,7 +100,7 @@ python assignment-list.py --add "Some assignment that was not added"
 ```
 Added assignment "Some assignment that was not added"
 ```
-To make sure what did worked, let's check the list once again
+To make sure that what we did worked, let's check the list once again
 ```
 python assignment-list.py -list
 ```
