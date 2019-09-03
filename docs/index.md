@@ -36,19 +36,7 @@ If you follow through with the program's suggestion you would type this:
 ```
 python assignment-list.py --help
 ```
-And the program would output this:
-```
-usage: assignment-list.py [-h] [-c ASSIGNMENT_NUMBER] [-a "ASSIGNMENT TEXT"]
-                          [-l]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -c ASSIGNMENT_NUMBER, --complete ASSIGNMENT_NUMBER
-                        Mark an assignment as complete
-  -a "ASSIGNMENT TEXT", --add "ASSIGNMENT TEXT"
-                        Add an assignment not found in Student Vue
-  -l, --list            List to do assignments
-```
+And the program would output it's help message.<br>
 Now, let's break it down:
 * There are four commands
     - "--help" or "-h" which shows this help screen
