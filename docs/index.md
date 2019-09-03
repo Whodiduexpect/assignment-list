@@ -10,10 +10,10 @@ The installation process is simple (without Git method):
 1. Download the [zip file](https://github.com/Whodiduexpect/assignment-list/archive/master.zip) (can also be accessed from GitHub page)
 2. Extract the zip file to a folder on the computer
 3. Open the terminal in that folder and get the dependencies:
-<a/>
 ```
 pip install -r requirements.txt
 ```
+<a/>
 ## How do I use assignment list?
 The first time you use assignment list, it asks you for your Student Vue credentials. Here, we will just start it without asking it to do anything just to get it set up first.
 ```
@@ -44,6 +44,7 @@ Now, let's break it down:
     - "--complete" or "-c" which completes an assignment
     - "--add" or "-a" which adds an assignment that is not present in Student Vue
     - "--list" or "-l" which shows you the assignment list
+<a/>
 #### Testing it out
 Now let's test out these features.
 First off, we check the assignments we have due:
