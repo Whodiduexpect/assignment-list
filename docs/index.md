@@ -61,6 +61,7 @@ First off, we check the assignments we have due:
 ```
 python assignment-list.py --list
 ```
+
 ```
 -Assignment List-
 1. Test assignment
@@ -70,6 +71,7 @@ Now that we have the list, we mark the second one as complete:
 ```
 python assignment-list.py --complete 2
 ```
+
 ```
 Marked assignment #2 as complete
 ```
@@ -85,6 +87,7 @@ It's gone! Well I do need to add that assignment that was never added to Student
 ```
 python assignment-list.py --add "Some assignment that was not added"
 ```
+
 ```
 Added assignment "Some assignment that was not added"
 ```
@@ -92,6 +95,7 @@ To make sure that what we did worked, let's check the list once again
 ```
 python assignment-list.py --list
 ```
+
 ```
 1. Some assignment that was not added
 2. Test assignment
