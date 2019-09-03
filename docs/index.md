@@ -10,6 +10,7 @@ The installation process is simple (without Git method):
 1. Download the [zip file](https://github.com/Whodiduexpect/assignment-list/archive/master.zip) (can also be accessed from GitHub page)
 2. Extract the zip file to a folder on the computer
 3. Open the terminal in that folder and get the dependencies:
+<a/>
 ```
 pip install -r requirements.txt
 ```
