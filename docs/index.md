@@ -14,7 +14,7 @@ The installation process is simple (without Git method):
 pip install -r requirements.txt
 ```
 [//]: # (End list)
-## How do I use assignment list?
+# How do I use assignment list?
 The first time you use assignment list, it asks you for your Student Vue credentials. Here, we will just start it without asking it to do anything just to get it set up first.
 ```
 python assignment-list.py
