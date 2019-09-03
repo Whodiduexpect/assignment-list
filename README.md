@@ -1,6 +1,6 @@
 # Assignment List
 
-Assignment list is an assignment organizing application for students that have a Student Vue web portal. It allows to keep track of a list of assignments, and allows you to do things like mark assignments as completed and add new assignments that were not put on Student Vue. New features are planned to be implemented, for example, a reminder that allows you to remind you of a certain assignment on a specific day when you ask for the list of assignments.
+Assignment list is an assignment organizing application for students that have a Student Vue web portal. It allows to keep track of a list of assignments and allows you to do things like mark assignments as completed and add new assignments that were not put on Student Vue. New features are planned to be implemented, for example, a reminder that allows you to remind you of a certain assignment on a specific day when you ask for the list of assignments.
 
 ## Getting Started
 
@@ -32,9 +32,9 @@ python assignment-list.py
 
 If everything is working, you should see it output:
 ```
-First time setup - Please enter your student id number, your password and your district domain seperated by commas.
+First time setup - Please enter your student id number, your password and your district domain separated by commas.
 ```
-Enter your student id number, your password, and your district domain (the first part of your login url) seperated by commas.
+Enter your student id number, your password, and your district domain (the first part of your login URL) separated by commas.
 (This is an example)
 ```
 123456,mysupersecurepassword,https://portal.somedistrict.us
@@ -63,10 +63,10 @@ optional arguments:
 ```
 Now, let's break it down:
 * There are four commands
-	- "--help" or "-h" which shows this help screen
-	- "--complete" or "-c" which completes an assignment
-	- "--add" or "-a" which adds an assignment that is not present in Student Vue
-	- "--list" or "-l" which shows you the assignment list
+    - "--help" or "-h" which shows this help screen
+    - "--complete" or "-c" which completes an assignment
+    - "--add" or "-a" which adds an assignment that is not present in Student Vue
+    - "--list" or "-l" which shows you the assignment list
 #### Testing it out
 Now let's test out these features.
 First off, we check the assignments we have due:
