@@ -96,4 +96,3 @@ python assignment-list.py --list
 1. Some assignment that was not added
 2. Test assignment
 ```
-This sums up the entire script
