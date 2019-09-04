@@ -27,7 +27,7 @@ pip install -r requirements.txt
 Start the script. (In this example, we'll use no arguments just to trigger the setup sequence without actually using it)
 
 ```
-python assignment-list.py
+python assignment_list.py
 ```
 
 If everything is working, you should see it output:
@@ -46,11 +46,11 @@ Did you mean to do something? Try adding the argument "--help"
 ### Demonstration
 If you follow through with the program's suggestion you would type this:
 ```
-python assignment-list.py --help
+python assignment_list.py --help
 ```
 And the program would output this:
 ```
-usage: assignment-list.py [-h] [-c ASSIGNMENT_NUMBER] [-a "ASSIGNMENT TEXT"]
+usage: assignment_list.py [-h] [-c ASSIGNMENT_NUMBER] [-a "ASSIGNMENT TEXT"]
                           [-l]
 
 optional arguments:
@@ -71,7 +71,7 @@ Now, let's break it down:
 Now let's test out these features.
 First off, we check the assignments we have due:
 ```
-python assignment-list.py --list
+python assignment_list.py --list
 ```
 ```
 -Assignment List-
@@ -80,14 +80,14 @@ python assignment-list.py --list
 ```
 Now that we have the list, we mark the second one as complete:
 ```
-python assignment-list.py --complete 2
+python assignment_list.py --complete 2
 ```
 ```
 Marked assignment #2 as complete
 ```
 We then check the list again
 ```
-python assignment-list.py -l
+python assignment_list.py -l
 ```
 ```
 -Assignment List-
@@ -95,14 +95,14 @@ python assignment-list.py -l
 ```
 It's gone! Well I do need to add that assignment that was never added to Student Vue for some reason
 ```
-python assignment-list.py --add "Some assignment that was not added"
+python assignment_list.py --add "Some assignment that was not added"
 ```
 ```
 Added assignment "Some assignment that was not added"
 ```
 To make sure that what we did worked, let's check the list once again
 ```
-python assignment-list.py --list
+python assignment_list.py --list
 ```
 ```
 1. Some assignment that was not added

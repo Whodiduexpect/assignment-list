@@ -18,7 +18,7 @@ pip install -r requirements.txt
 # How do I use assignment list?
 The first time you use assignment list, it asks you for your Student Vue credentials. Here, we will just start it without asking it to do anything just to get it set up first.
 ```
-python assignment-list.py
+python assignment_list.py
 ```
 If everything is working, you should see it output:
 ```
@@ -36,7 +36,7 @@ Did you mean to do something? Try adding the argument "--help"
 ### Demonstration
 If you follow through with the program's suggestion you would type this:
 ```
-python assignment-list.py --help
+python assignment_list.py --help
 ```
 And the program would output it's help message.<br>
 Now, let's break it down:
@@ -50,7 +50,7 @@ Now, let's break it down:
 Now let's test out these features.
 First off, we check the assignments we have due:
 ```
-python assignment-list.py --list
+python assignment_list.py --list
 ```
 
 ```
@@ -60,7 +60,7 @@ python assignment-list.py --list
 ```
 Now that we have the list, we mark the second one as complete:
 ```
-python assignment-list.py --complete 2
+python assignment_list.py --complete 2
 ```
 
 ```
@@ -68,7 +68,7 @@ Marked assignment #2 as complete
 ```
 We then check the list again
 ```
-python assignment-list.py -l
+python assignment_list.py -l
 ```
 ```
 -Assignment List-
@@ -76,7 +76,7 @@ python assignment-list.py -l
 ```
 It's gone! Well I do need to add that assignment that was never added to Student Vue for some reason
 ```
-python assignment-list.py --add "Some assignment that was not added"
+python assignment_list.py --add "Some assignment that was not added"
 ```
 
 ```
@@ -84,7 +84,7 @@ Added assignment "Some assignment that was not added"
 ```
 To make sure that what we did worked, let's check the list once again
 ```
-python assignment-list.py --list
+python assignment_list.py --list
 ```
 
 ```
