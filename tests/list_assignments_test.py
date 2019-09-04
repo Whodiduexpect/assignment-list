@@ -17,7 +17,7 @@ class Capturing(list):
 def test_answer():
     with Capturing() as output:
         assignment_list.list_assignments(["Test Assignment 1", "test assignment 2", 28])
-    assert output == ['-Assignment List-', '1. Test Assignment 1', '2. test assignment 2', '3. 28']
+    assert output == ['-- Assignment List --', '1. Test Assignment 1', '2. test assignment 2', '3. 28']
 
     with Capturing() as output:
         assignment_list.list_assignments([])

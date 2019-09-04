@@ -12,7 +12,7 @@ def list_assignments(assignments):
     if not len(assignments):
         print("No assignments to do!")
     else:
-        print("-Assignment List-")
+        print("-- Assignment List --")
         i = 0
     for assignment in assignments:
         i += 1

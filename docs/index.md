@@ -54,7 +54,7 @@ python assignment_list.py --list
 ```
 
 ```
--Assignment List-
+-- Assignment List --
 1. Test assignment
 2. Some other assignment from student vue
 ```
@@ -71,7 +71,7 @@ We then check the list again
 python assignment_list.py -l
 ```
 ```
--Assignment List-
+-- Assignment List --
 1. Test assignment
 ```
 It's gone! Well I do need to add that assignment that was never added to Student Vue for some reason
