@@ -18,6 +18,11 @@ def list_assignments(assignments):
         i += 1
         print(str(i) + ".", assignment)
 
+def update_file(file, list):
+    with open_data(file, 'w') as f:
+        for assignment in list:
+            f.write("%s\n" % assignment)
+
 def start():
     # Create files if they don't exist
     if not os.path.exists(Path("data/credentials")): # If there is not a credential file, prompt the user to create one
@@ -57,9 +62,11 @@ def start():
     # Merge them all in to one list
     assignments = [x for x in added_assignments + studentvue_assignments if x not in completed_assignments]
 
+    # Get and parse the arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--complete", metavar = "ASSIGNMENT_NUMBER", help="Mark an assignment as complete", type=int)
     parser.add_argument("-a", "--add", metavar = "\"ASSIGNMENT TEXT\"",help="Add an assignment not found in Student Vue")
+    parser.add_argument("-i", "--incomplete", metavar = "\"ASSIGNMENT TEXT\"",help="Mark a complete assignment as incomplete")
     parser.add_argument("-l", "--list", help="List to do assignments", action="store_true")
     args = parser.parse_args()
 
@@ -67,19 +74,21 @@ def start():
         list_assignments(assignments)
     if args.complete:
         completed_assignments.append(assignments[args.complete-1])
-        with open_data('completed-assignments', 'w') as f:
-            for assignment in completed_assignments:
-                f.write("%s\n" % assignment)
+        update_file('completed-assignments', completed_assignments)
         print("Marked assignment #" + str(args.complete), "as complete" )
     if args.add:
         added_assignments.append(args.add)
-        with open_data('added-assignments', 'w') as f:
-            for assignment in added_assignments:
-                f.write("%s\n" % assignment)
+        update_file('added-assignments', added_assignments)
         print("Added assignment \"%s\"" % args.add)
-    if not args.add and not args.complete and not args.list:
+    if args.incomplete:
+        if args.incomplete in completed_assignments:
+            completed_assignments.remove(args.incomplete)
+            update_file('completed-assignments', completed_assignments)
+            print ("Marked assignment \"%s\" as incomplete" % args.incomplete)
+        else:
+            print("\"%s\" is not a completed assignment." % args.incomplete)
+    if not args.add and not args.complete and not args.list and not args.incomplete:
         print("Did you mean to do something? Try adding the argument \"--help\"")
 
-if __name__ == "__main__":
-   # stuff only to run when not called via 'import' here
+if __name__ == "__main__": # Start only if we're starting the file directely (to avoid breaking tests)
    start()
