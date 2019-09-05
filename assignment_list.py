@@ -31,7 +31,7 @@ def get_data_from_file(filename, split_char):
     return output
 
 def create_if_not_exist(filename):
-    if not os.path.exists(Path("data/%s" % filename)):
+    if not os.path.exists(str(Path("data/%s" % filename))):
         file = open_data(filename, "w")
         file.close()
 
