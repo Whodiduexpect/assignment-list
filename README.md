@@ -109,6 +109,7 @@ To make sure that what we did worked, let's check the list once again
 python assignment_list.py --list
 ```
 ```
+-- Assignment List --
 1. Some assignment that was not added
 2. Test assignment
 ```
@@ -124,6 +125,7 @@ And if we pull up the list:
 python assignment_list.py -l
 ```
 ```
+-- Assignment List --
 1. Some assignment that was not added
 2. Algebra assignment from Student Vue
 3. Test assignment
