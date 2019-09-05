@@ -7,7 +7,7 @@ from pathlib import Path
 
 # Define functions
 def open_data(file,mode):
-	return open(Path("data/%s" % file), mode)
+	return open(str(Path("data/%s" % file)), mode)
 
 def list_assignments(assignments):
     if not len(assignments):
@@ -20,7 +20,7 @@ def list_assignments(assignments):
         print(str(i) + ".", assignment)
 
 def update_file(file, list):
-    with open_data(file, 'w') as f:
+    with open_data(str(file), 'w') as f:
         for assignment in list:
             f.write("%s\n" % assignment)
 
@@ -33,7 +33,7 @@ def get_data_from_file(filename, split_char):
 def create_if_not_exist(filename):
     path = str(Path("data/%s" % filename))
     if not os.path.exists(path):
-        file = open_data(filename, "w")
+        file = open_data(str(filename), "w")
         file.close()
 
 def get_assignments():
