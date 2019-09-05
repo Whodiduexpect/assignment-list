@@ -35,7 +35,7 @@ def create_if_not_exist(filename):
         file = open_data(filename, "w")
         file.close()
 
-def get_assignments():
+def get_assignments(credentials):
         # Login to Student Vue
     try:
         sv = StudentVue(credentials[0],credentials[1],credentials[2])
@@ -81,20 +81,20 @@ def start():
     args = parser.parse_args()
 
     if args.list:
-        assignments = get_assignments()
+        assignments = get_assignments(credentials)
         list_assignments(assignments)
     if args.complete:
-        assignments = get_assignments()
+        assignments = get_assignments(credentials)
         completed_assignments.append(assignments[args.complete-1])
         update_file('completed-assignments', completed_assignments)
         print("Marked assignment #" + str(args.complete), "as complete" )
     if args.add:
-        assignments = get_assignments()
+        assignments = get_assignments(credentials)
         added_assignments.append(args.add)
         update_file('added-assignments', added_assignments)
         print("Added assignment \"%s\"" % args.add)
     if args.incomplete:
-        assignments = get_assignments()
+        assignments = get_assignments(credentials)
         if args.incomplete in completed_assignments:
             completed_assignments.remove(args.incomplete)
             update_file('completed-assignments', completed_assignments)
