@@ -9,7 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You will need Python 3 installed and working for this script to work.
+You will need Python 3.6 or later installed and working for this script to work.
 
 ### Installing
 
@@ -45,14 +45,13 @@ If you correctly entered your login details, it should output:
 Did you mean to do something? Try adding the argument "--help"
 ```
 ### Demonstration
-If you follow through with the program's suggestion you would type this:
+For this demonstration, let's follow through with that suggestion:
 ```
 python assignment_list.py --help
 ```
-And the program would output this:
 ```
 usage: assignment_list.py [-h] [-c ASSIGNMENT_NUMBER] [-a "ASSIGNMENT TEXT"]
-                          [-l]
+                          [-i "ASSIGNMENT TEXT"] [-l]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -60,13 +59,16 @@ optional arguments:
                         Mark an assignment as complete
   -a "ASSIGNMENT TEXT", --add "ASSIGNMENT TEXT"
                         Add an assignment not found in Student Vue
+  -i "ASSIGNMENT TEXT", --incomplete "ASSIGNMENT TEXT"
+                        Mark a complete assignment as incomplete
   -l, --list            List to do assignments
 ```
 Now, let's break it down:
-* There are four commands
+* There are five commands
     - "--help" or "-h" which shows this help screen
     - "--complete" or "-c" which completes an assignment
     - "--add" or "-a" which adds an assignment that is not present in Student Vue
+    - "--incomplete" or "-i" which marks a complete assignment as incomplete
     - "--list" or "-l" which shows you the assignment list
 #### Testing it out
 Now let's test out these features.
@@ -77,9 +79,9 @@ python assignment_list.py --list
 ```
 -- Assignment List --
 1. Test assignment
-2. Some other assignment from student vue
+2. Algebra assignment from Student Vue
 ```
-Now that we have the list, we mark the second one as complete:
+Now that we have the list, we will mark the second one as complete:
 ```
 python assignment_list.py --complete 2
 ```
@@ -94,7 +96,7 @@ python assignment_list.py -l
 -- Assignment List --
 1. Test assignment
 ```
-It's gone! Well I do need to add that assignment that was never added to Student Vue for some reason
+It's gone! Let's try adding an assignment manually
 ```
 python assignment_list.py --add "Some assignment that was not added"
 ```
@@ -109,7 +111,22 @@ python assignment_list.py --list
 1. Some assignment that was not added
 2. Test assignment
 ```
-This sums up the entire script
+Whoops! Turns out that algerbra worksheet had a backside... Let's fix that
+```
+python assignment_list.py --incomplete "Algebra assignment from Student Vue"
+```
+```
+Marked assignment "Algebra assignment from Student Vue" as incomplete
+```
+And if we pull up the list:
+```
+python assignment_list.py -l
+```
+```
+1. Some assignment that was not added
+2. Algebra assignment from Student Vue
+3. Test assignment
+```
 
 ## License
 
