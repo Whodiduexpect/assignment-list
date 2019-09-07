@@ -21,6 +21,7 @@ If you have issues with the command above, you can also try:
 ```
 pip3 install -r requirements.txt
 ```
+
 ### I feel like you're going a bit too fast for my liking...
 Well, if you're still confused, you click on the [zip file](https://github.com/Whodiduexpect/assignment-list/archive/master.zip) (the link), you select a folder where to put it, you accept it and you let it download. Then, you should be able to open the folder where you put the zip file, right click it and select an option that's along the lines of "extract". From there you should be able to extract the zip file somewhere and open the terminal in the folder (do a web search on how you do this on your operating system if you need to) and you enter the following into the terminal:
 ```
