@@ -9,7 +9,7 @@ It's easy, **all** your assignments are in one quick to access place. This inclu
 ## I know how all of this works
 Great, check out the [README](https://github.com/Whodiduexpect/assignment-list/blob/master/README.md) on GitHub.
 ## I don't really know what I'm doing
-The first thing you'll need is Python 3. Specificaly, that's Python 3.6 and later. Downloads of Python can be found on the [Python download page](https://www.python.org/downloads/)<br>
+The first thing you'll need is Python 3. Specifically, that's Python 3.6 and later. Downloads of Python can be found on the [Python download page](https://www.python.org/downloads/)<br>
 Once you have Python installed the installation is simple:
 1. Download the [zip file](https://github.com/Whodiduexpect/assignment-list/archive/master.zip)
 2. Extract the zip file to a folder on the computer
@@ -23,7 +23,7 @@ pip3 install -r requirements.txt
 ```
 
 ### I feel like you're going a bit too fast for my liking...
-Well, if you're still confused, you click on the [zip file](https://github.com/Whodiduexpect/assignment-list/archive/master.zip) (the link), you select a folder where to put it, you accept it and you let it download. Then, you should be able to open the folder where you put the zip file, right click it and select an option that's along the lines of "extract". From there you should be able to extract the zip file somewhere and open the terminal in the folder (do a web search on how you do this on your operating system if you need to) and you enter the following into the terminal:
+Well, if you're still confused, you click on the [zip file](https://github.com/Whodiduexpect/assignment-list/archive/master.zip) (the link), you select a folder where to put it, you accept it and you let it download. Then, you should be able to open the folder where you put the zip file, right-click it and select an option that's along the lines of "extract". From there you should be able to extract the zip file somewhere and open the terminal in the folder (do a web search on how you do this on your operating system if you need to) and you enter the following into the terminal:
 ```
 pip install -r requirements.txt
 ```
@@ -118,7 +118,7 @@ python assignment_list.py --list
 1. Some assignment that was not added
 2. Test assignment
 ```
-Whoops! Turns out that algerbra worksheet had a backside... Let's fix that
+Whoops! Turns out that algebra worksheet had a backside... Let's fix that
 ```
 python assignment_list.py --incomplete "Algebra assignment from Student Vue"
 ```
