@@ -6,13 +6,29 @@ However, Student Vue is poorly designed when it comes to assignments. The only t
 ## What does assignment list do to help?
 It's easy, **all** your assignments are in one quick to access place. This includes assignments that aren't normally on Student Vue, being human error or some other reason, as you can now manually add your assignments. It allows you to mark assignments as complete, bringing them out of the to list, and will very soon get advanced functionality, such as scheduling days to work on certain assignments, which would show up when you request the list.
 # How can I get assignment list?
-**NOTE: Assignment list requires Python 3 to be installed**<br>
-The installation process is simple (without Git method):
-1. Download the [zip file](https://github.com/Whodiduexpect/assignment-list/archive/master.zip) (can also be accessed from GitHub page)
+## I know how all of this works
+Great, check out the [README](https://github.com/Whodiduexpect/assignment-list/blob/master/README.md) on GitHub.
+## I don't really know what I'm doing
+The first thing you'll need is Python 3. Specificaly, that's Python 3.6 and later. Downloads of Python can be found on the [Python download page](https://www.python.org/downloads/)<br>
+Once you have Python installed the installation is simple:
+1. Download the [zip file](https://github.com/Whodiduexpect/assignment-list/archive/master.zip)
 2. Extract the zip file to a folder on the computer
 3. Open the terminal in that folder and get the dependencies:
 ```
 pip install -r requirements.txt
+```
+If you have issues with the command above, you can also try:
+```
+pip3 install -r requirements.txt
+```
+### I feel like you're going a bit too fast for my liking...
+Well, if you're still confused, you click on the [zip file](https://github.com/Whodiduexpect/assignment-list/archive/master.zip) (the link), you select a folder where to put it, you accept it and you let it download. Then, you should be able to open the folder where you put the zip file, right click it and select an option that's along the lines of "extract". From there you should be able to extract the zip file somewhere and open the terminal in the folder (do a web search on how you do this on your operating system if you need to) and you enter the following into the terminal:
+```
+pip install -r requirements.txt
+```
+and if it gave an error, try
+```
+pip3 install -r requirements.txt
 ```
 
 # How do I use assignment list?
@@ -34,35 +50,46 @@ If you correctly entered your login details, it should output:
 Did you mean to do something? Try adding the argument "--help"
 ```
 ### Demonstration
-If you follow through with the program's suggestion you would type this:
+For this demonstration, let's follow through with that suggestion:
 ```
 python assignment_list.py --help
 ```
-And the program would output it's help message.<br>
+```
+usage: assignment_list.py [-h] [-c ASSIGNMENT_NUMBER] [-a "ASSIGNMENT TEXT"]
+                          [-i "ASSIGNMENT TEXT"] [-l]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c ASSIGNMENT_NUMBER, --complete ASSIGNMENT_NUMBER
+                        Mark an assignment as complete
+  -a "ASSIGNMENT TEXT", --add "ASSIGNMENT TEXT"
+                        Add an assignment not found in Student Vue
+  -i "ASSIGNMENT TEXT", --incomplete "ASSIGNMENT TEXT"
+                        Mark a complete assignment as incomplete
+  -l, --list            List to do assignments
+```
 Now, let's break it down:
-* There are four commands
+* There are five commands
     - "--help" or "-h" which shows this help screen
     - "--complete" or "-c" which completes an assignment
     - "--add" or "-a" which adds an assignment that is not present in Student Vue
+    - "--incomplete" or "-i" which marks a complete assignment as incomplete
     - "--list" or "-l" which shows you the assignment list
-
 #### Testing it out
 Now let's test out these features.
 First off, we check the assignments we have due:
 ```
 python assignment_list.py --list
 ```
-
 ```
 -- Assignment List --
 1. Test assignment
-2. Some other assignment from student vue
+2. Algebra assignment from Student Vue
 ```
-Now that we have the list, we mark the second one as complete:
+Now that we have the list, we will mark the second one as complete:
 ```
 python assignment_list.py --complete 2
 ```
-
 ```
 Marked assignment #2 as complete
 ```
@@ -74,11 +101,10 @@ python assignment_list.py -l
 -- Assignment List --
 1. Test assignment
 ```
-It's gone! Well I do need to add that assignment that was never added to Student Vue for some reason
+It's gone! Let's try adding an assignment manually
 ```
 python assignment_list.py --add "Some assignment that was not added"
 ```
-
 ```
 Added assignment "Some assignment that was not added"
 ```
@@ -86,8 +112,25 @@ To make sure that what we did worked, let's check the list once again
 ```
 python assignment_list.py --list
 ```
-
 ```
+-- Assignment List --
 1. Some assignment that was not added
 2. Test assignment
+```
+Whoops! Turns out that algerbra worksheet had a backside... Let's fix that
+```
+python assignment_list.py --incomplete "Algebra assignment from Student Vue"
+```
+```
+Marked assignment "Algebra assignment from Student Vue" as incomplete
+```
+And if we pull up the list:
+```
+python assignment_list.py -l
+```
+```
+-- Assignment List --
+1. Some assignment that was not added
+2. Algebra assignment from Student Vue
+3. Test assignment
 ```
