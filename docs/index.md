@@ -32,7 +32,7 @@ and if it gave an error, try
 pip3 install -r requirements.txt
 ```
 
-# How do I use assignment list?
+## Now, how do I use assignment list?
 The first time you use assignment list, it asks you for your Student Vue credentials. Here, we will just start it without asking it to do anything just to get it set up first.
 ```
 python assignment_list.py
@@ -55,21 +55,8 @@ For this demonstration, let's follow through with that suggestion:
 ```
 python assignment_list.py --help
 ```
-```
-usage: assignment_list.py [-h] [-c ASSIGNMENT_NUMBER] [-a "ASSIGNMENT TEXT"]
-                          [-i "ASSIGNMENT TEXT"] [-l]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -c ASSIGNMENT_NUMBER, --complete ASSIGNMENT_NUMBER
-                        Mark an assignment as complete
-  -a "ASSIGNMENT TEXT", --add "ASSIGNMENT TEXT"
-                        Add an assignment not found in Student Vue
-  -i "ASSIGNMENT TEXT", --incomplete "ASSIGNMENT TEXT"
-                        Mark a complete assignment as incomplete
-  -l, --list            List to do assignments
-```
-Now, let's break it down:
+It would then show it's help message<br>
+Basically the help message says that:<br>
 * There are five commands
     - "--help" or "-h" which shows this help screen
     - "--complete" or "-c" which completes an assignment
