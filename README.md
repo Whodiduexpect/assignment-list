@@ -113,7 +113,7 @@ python assignment_list.py --list
 1. Some assignment that was not added
 2. Test assignment
 ```
-Whoops! Turns out that algerbra worksheet had a backside... Let's fix that
+Whoops! Turns out that algebra worksheet had a backside... Let's fix that
 ```
 python assignment_list.py --incomplete "Algebra assignment from Student Vue"
 ```
