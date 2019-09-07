@@ -32,7 +32,7 @@ and if it gave an error, try
 pip3 install -r requirements.txt
 ```
 
-## Now, how do I use assignment list?
+### Now, how do I use assignment list?
 The first time you use assignment list, it asks you for your Student Vue credentials. Here, we will just start it without asking it to do anything just to get it set up first.
 ```
 python assignment_list.py
