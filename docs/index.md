@@ -1,10 +1,9 @@
-# What is assignment list?
-## Why was it created?
-### The premise
+# Why was assignment list created?
+## The premise
 Assignment list was created because of districts that put all their assignments in a Student Vue web portal. If you don't know Student Vue, this might sound great as it puts all the assignments in one place. 
-### Why Student Vue is unfit for assignments
+## Why Student Vue is unfit for assignments
 However, Student Vue is poorly designed when it comes to assignments. The only thing it has to offer is a simple calendar with the name of the assignment. That's it - there are no organization tools, you just have to remember which ones you have done, and you can't manually add anything. You can't even filter any assignments, so every time you want to take a look you have to look at every assignment that month. And if it's the last day of the month you have to go all the way to next month just for one day.
-### What does assignment list do to help?
+## What does assignment list do to help?
 It's easy, **all** your assignments are in one quick to access place. This includes assignments that aren't normally on Student Vue, being human error or some other reason, as you can now manually add your assignments. It allows you to mark assignments as complete, bringing them out of the to list, and will very soon get advanced functionality, such as scheduling days to work on certain assignments, which would show up when you request the list.
 # How can I get assignment list?
 ## I know how all of this works
