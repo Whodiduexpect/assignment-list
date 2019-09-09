@@ -12,7 +12,7 @@ The [README](https://github.com/Whodiduexpect/assignment-list/blob/master/README
 The first thing you'll need is Python 3. Specifically, that's Python 3.6 and later. Downloads of Python can be found on the [Python download page](https://www.python.org/downloads/)<br>
 Once you have Python installed the installation is simple:
 1. Download the [zip file](https://github.com/Whodiduexpect/assignment-list/archive/master.zip)
-2. Extract the zip file to a folder on the computer
+2. Extract the zip file to a folder
 3. Open the terminal in that folder and get the dependencies:
 ```
 pip install -r requirements.txt
