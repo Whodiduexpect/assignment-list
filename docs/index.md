@@ -1,13 +1,14 @@
 # What is assignment list?
 ## Why was it created?
+### The premise
 Assignment list was created because of districts that put all their assignments in a Student Vue web portal. If you don't know Student Vue, this might sound great as it puts all the assignments in one place. 
-## Why Student Vue is unfit for assignments
+### Why Student Vue is unfit for assignments
 However, Student Vue is poorly designed when it comes to assignments. The only thing it has to offer is a simple calendar with the name of the assignment. That's it - there are no organization tools, you just have to remember which ones you have done, and you can't manually add anything. You can't even filter any assignments, so every time you want to take a look you have to look at every assignment that month. And if it's the last day of the month you have to go all the way to next month just for one day.
-## What does assignment list do to help?
+### What does assignment list do to help?
 It's easy, **all** your assignments are in one quick to access place. This includes assignments that aren't normally on Student Vue, being human error or some other reason, as you can now manually add your assignments. It allows you to mark assignments as complete, bringing them out of the to list, and will very soon get advanced functionality, such as scheduling days to work on certain assignments, which would show up when you request the list.
 # How can I get assignment list?
 ## I know how all of this works
-Great, check out the [README](https://github.com/Whodiduexpect/assignment-list/blob/master/README.md) on GitHub.
+The [README](https://github.com/Whodiduexpect/assignment-list/blob/master/README.md) is quicker to the point if you are already familliar with Python.
 ## I don't really know what I'm doing
 The first thing you'll need is Python 3. Specifically, that's Python 3.6 and later. Downloads of Python can be found on the [Python download page](https://www.python.org/downloads/)<br>
 Once you have Python installed the installation is simple:
@@ -18,16 +19,6 @@ Once you have Python installed the installation is simple:
 pip install -r requirements.txt
 ```
 If you have issues with the command above, you can also try:
-```
-pip3 install -r requirements.txt
-```
-
-### I feel like you're going a bit too fast for my liking...
-Well, if you're still confused, you click on the [zip file](https://github.com/Whodiduexpect/assignment-list/archive/master.zip) (the link), you select a folder where to put it, you accept it and you let it download. Then, you should be able to open the folder where you put the zip file, right-click it and select an option that's along the lines of "extract". From there you should be able to extract the zip file somewhere and open the terminal in the folder (do a web search on how you do this on your operating system if you need to) and you enter the following into the terminal:
-```
-pip install -r requirements.txt
-```
-and if it gave an error, try
 ```
 pip3 install -r requirements.txt
 ```
