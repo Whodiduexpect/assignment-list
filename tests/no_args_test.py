@@ -1,7 +1,7 @@
-import sys
 from io import StringIO
 from pathlib import Path
 import pytest
+import sys
 import os
 sys.path.append('../')
 sys.path.append("")
