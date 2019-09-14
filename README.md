@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Whodiduexpect/assignment-list.svg?branch=master)](https://travis-ci.org/Whodiduexpect/assignment-list)
 # Assignment List
-**PLEASE NOTE: Assignment list is still very much a work in progress and I can't test the Student Vue part just yet**
+**PLEASE NOTE: Assignment list is still very much a work in progress**
 
 Assignment list is an assignment organizing application for students that have a Student Vue web portal. It allows to keep track of a list of assignments and allows you to do things like mark assignments as completed and add new assignments that were not put on Student Vue. New features are planned to be implemented, for example, a reminder that allows you to remind you of a certain assignment on a specific day when you ask for the list of assignments.
 
