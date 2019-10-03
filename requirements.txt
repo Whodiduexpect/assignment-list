@@ -1,1 +1,3 @@
 studentvue
+pandas
+click
