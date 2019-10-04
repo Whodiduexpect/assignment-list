@@ -102,7 +102,7 @@ def main():
         Complete an assignment
         '''
         assignments = studentvue_parser.getAssignments(credentials)
-        assignments.set_value(assignments.loc[assignments['Assignment ID'].isin([id])].index, 'is_completed', True)  # TODO: set_value() is deprecated and will need to be replaced
+        assignments.at[assignments.loc[assignments['Assignment ID'].isin([id])].index, 5] = True
         updateCsv(assignments)
         click.echo("Marked assignment #%s as complete" % id)
 
