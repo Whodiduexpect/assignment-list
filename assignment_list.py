@@ -8,7 +8,6 @@ import studentvue_parser
 
 
 # Define functions
-
 def openData(file, mode):
     return open(Path("data/%s" % file), mode)
 
@@ -46,31 +45,26 @@ def pointProblematicFile(path):
     click.echo("Full path to problematic file: %s" % Path(path).absolute())
 
 
-def setVerbose():
-    verbose_enabled = True
-    click.echo('Verbose mode is on')
-
-
 # Main
 def main():
-    # Create files if they don't exist
-    # If there is not a credential file, prompt the user to create one
+    # If the credential file does not exist:
     if not os.path.exists(Path("data/studentvue_credentials")):
+        # If we don't even have a data folder:
         if not os.path.exists("data"):
+            # Create one
             os.mkdir("data")
+        # Now that we know we have a data folder, let's set the credentials
         studentvue_parser.setCredentials()
 
     # Read the credential file
     credentials = getDataFromFile("studentvue_credentials", ",")
 
-    # Define Commands
-    verbose_enabled = False
-
+    # Define commands
     @click.group()
-    @click.option('--verbose/--no-verbose', default=False)
-    def cli(verbose):
-        if verbose:
-            setVerbose()
+    def cli():
+        '''
+        A better Student Vue assignment manager, (c) 2019 Whodiduexpect
+        '''
 
     @cli.command()
     def reset():
@@ -83,31 +77,37 @@ def main():
     @click.argument('category', required=False)
     def list(category):
         '''
-        List assignments
+        List assignments by CATEGORY (defaults to "current")
         '''
         if not category:
             category = "current"
         if category == "current":
             assignments = studentvue_parser.getAssignments(credentials)
             listAssignments(assignments)
-        elif category == "past":
-            print("Specifically viewing past assignments is not yet available")
         else:
-            print("\"%s\" is not a valid category. The valid categories are current and past." % category)
+            click.echo(
+                "\"%s\" is not a valid category. The only valid category is current" %
+                category)
 
     @cli.command()
     @click.argument('id')
     def complete(id):
         '''
-        Complete an assignment
+        Complete an assignment by assignment ID
         '''
         assignments = studentvue_parser.getAssignments(credentials)
-        assignments.at[assignments.loc[assignments['Assignment ID'].isin([id])].index, 5] = True
-        updateCsv(assignments)
+        try:
+            assignments.at[assignments.loc[assignments['Assignment ID'].isin(
+                [id])].index, "is_completed"] = True
+            updateCsv(assignments)
+        except BaseException:
+            click.echo("Failed to complete assignemnt #%s" % id)
+            sys.exit()
         click.echo("Marked assignment #%s as complete" % id)
 
     # Execute command
     cli(obj={})
+
 
 if __name__ == "__main__":
     main()

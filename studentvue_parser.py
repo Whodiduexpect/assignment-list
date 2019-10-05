@@ -25,9 +25,7 @@ def getAssignments(credentials):
         sv = StudentVue(credentials[0], credentials[1], credentials[2])
     except BaseException:
         click.echo(
-            "Invalid credentials. Try checking %s to make sure that it has a valid student id number, password, and district domain, all seperated by commas." %
-            Path("data/studentvue_credentials"))
-        assignment_list.pointProblematicFile("data/studentvue_credentials")
+            "Invalid credentials. You might want to use:\n   python assignment_list.py reset")
         sys.exit()
 
     # Create CSV file if it dosen't exist
@@ -44,7 +42,8 @@ def getAssignments(credentials):
         studentvue_assignments = sv.get_assignments()
     except Exception as e:
         click.echo(
-            "Failed to get Student Vue assignments... Please see https://github.com/kajchang/StudentVue for help on this issue.\n The specific error is:", sys.exc_value)
+            "Failed to get Student Vue assignments... Please see https://github.com/kajchang/StudentVue for help on this issue.\n The specific error is:",
+            sys.exc_info()[1])
         sys.exit()
     found_duplicate = False
     for sv_assignment in studentvue_assignments:
@@ -67,5 +66,6 @@ def getAssignments(credentials):
     assignment_list.updateCsv(assignments)
     return assignments
 
+
 if __name__ == "__main__":
-    print("Don't run me! Run assignment_list.py instead.")
+    click.echo("Don't run me! Run assignment_list.py instead.")
