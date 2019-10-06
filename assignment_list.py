@@ -113,22 +113,37 @@ def main():
         '''
         Add a new assignment with the TITLE and DATE
         '''
+
         # Get schedule
         classes = studentvue_parser.getSchedule(credentials)
-        # Print all the classes
-        for class_ in classes:
-            print(class_)
-        # Ask for which period
-        class_period_input = input(
-            '\nWhich class period do you want to add the assignment "%s" to? ' %
-            title)
-        class_period = int(class_period_input)
+        valid = False
+        while not valid:
+            # Print all the classes
+            for class_ in classes:
+                print(class_)
+
+            # Ask which period to add the assignment to
+            class_period_input = input(
+                '\nWhich class period do you want to add the assignment "%s" to? ' %
+                title)
+            try:  # Check if the input can even be converted to an integer!
+                class_period = int(class_period_input)
+            except BaseException:
+                if class_period > len(classes) or class_period < 1:
+                    click.echo('"%s" is an invalid input' % class_period)
+                else:
+                    valid = True
+            # Check that if the input is an integer, that it is a valid period
+            if class_period > len(classes) or class_period < 1:
+                click.echo("Invalid period.\n")
+            else:
+                valid = True
 
         # Auto generate the class as if it was from Student Vue
         teacher_fullname = classes[class_period - 1].teacher.name.split(' ')
-        teacher_label = "{0}, {1}".format(
+        teacher_label = '{0}, {1}'.format(
             teacher_fullname[1], teacher_fullname[0][:1])
-        class_name = "{0}  {1}({2})".format(teacher_label,
+        class_name = '{0}  {1}({2})'.format(teacher_label,
                                             classes[class_period - 1].name,
                                             classes[class_period - 1].period)
 
@@ -145,13 +160,14 @@ def main():
             if is_id_unique:
                 id_unique = True
 
+        # Make the assignment based on data we have collected/generated
         assignment_df = pd.DataFrame({'Assignment ID': [generated_id], 'Class Name': [
                                      class_name], 'Due Date': [date], 'Assignment': [title], 'is_completed': ['False']})
         assignments = assignments.append(assignment_df, sort=True)
         convert_dict = {'Assignment ID': int}
         assignments = assignments.astype(convert_dict)
         updateCsv(assignments)
-        print(assignments)
+
     # Execute command
     cli(obj={})
 

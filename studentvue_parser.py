@@ -73,7 +73,7 @@ def getSchedule(credentials):
         sv = StudentVue(credentials[0], credentials[1], credentials[2])
     except BaseException:
         click.echo(
-            'Invalid credentials. You might want to use:\n   python assignment_list.py reset')
+            'Invalid credentials. You can reset your credentials with:\n   python assignment_list.py reset')
         sys.exit()
     return sv.get_schedule()
 
