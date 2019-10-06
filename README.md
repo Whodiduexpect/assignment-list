@@ -71,4 +71,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-* [Student Vue, Unofficial Python API for StudentVue Portals](https://github.com/kajchang/StudentVue)
+* [Student Vue API, Unofficial Python API for StudentVue Portals](https://github.com/kajchang/StudentVue)
