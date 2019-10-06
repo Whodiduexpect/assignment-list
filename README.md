@@ -39,7 +39,7 @@ python assignment_list.py list
 1                               Test Assignment #2        2222222    Last, F  TESTCLASS II(2)   1/01/2019
 2                               Test Assignment #3        3333333   Last, F  TESTCLASS III(3)   1/01/2019
 ```
-Full usage instructions at [USAGE.md](https://github.com/Whodiduexpect/assignment-list/blob/master/USAGE.md)
+Full usage instructions at [USAGE.md](USAGE.md)
 
 ## Running the tests
 Assignment List has rather primitive tests that you can run with pytest.
@@ -58,7 +58,7 @@ These tests are mainly to make sure that Assignment List isn't completely broken
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/Whodiduexpect/assignment-list/blob/master/CONTRIBUTING.md)
+Please read [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Versioning
 
