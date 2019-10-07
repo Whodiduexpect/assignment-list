@@ -1,136 +1,74 @@
 [![Build Status](https://travis-ci.org/Whodiduexpect/assignment-list.svg?branch=master)](https://travis-ci.org/Whodiduexpect/assignment-list)
 # Assignment List
-**PLEASE NOTE: Assignment list is still very much a work in progress**
 
-Assignment list is an assignment organizing application for students that have a Student Vue web portal. It allows to keep track of a list of assignments and allows you to do things like mark assignments as completed and add new assignments that were not put on Student Vue. New features are planned to be implemented, for example, a reminder that allows you to remind you of a certain assignment on a specific day when you ask for the list of assignments.
+Assignment list is a terminal-based assignment manager for the Student Vue web portal. Assignment List is meant to replace the lack of features in Student Vue by giving tools to manage assignments, like a fancy integrated to-do list.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine.
+These instructions will get you a copy of Assignment List up and running on your machine.
 
 ### Prerequisites
 
-You will need Python 3.6 or later installed and working for this script to work.
+Assignment List works with Python 3.6 or later
 
 ### Installing
 
-Clone the repository<br>
-Example: Cloning the repository with Git
-```
-git clone git://github.com/Whodiduexpect/assignment-list.git
-```
-
-Install the dependencies
+Clone the repository (with Git)
 
 ```
-pip install -r requirements.txt
+git clone https://github.com/Whodiduexpect/assignment-list.git
 ```
 
-Start the script. (In this example, we'll use no arguments just to trigger the setup sequence without actually using it)
+Change directory and install the dependencies
 
+```
+cd assignment-list
+pip3 install -r requirements.txt
+```
+And now to test it:
 ```
 python assignment_list.py
 ```
+It should then prompt you with the initial setup. From there you can try listing the current assignments:
+```
+python assignment_list.py list
+```
+```
+                                        Assignment  Assignment ID                  Class Name    Due Date
+0                               Test Assignment #1        1111111     Last, F  TESTCLASS I(1)   1/01/2019
+1                               Test Assignment #2        2222222    Last, F  TESTCLASS II(2)   1/01/2019
+2                               Test Assignment #3        3333333   Last, F  TESTCLASS III(3)   1/01/2019
+```
+For full usage instructions, see [USAGE.md](USAGE.md)
 
-If everything is working, you should see it output:
+## Running the tests
+Assignment List has rather primitive tests that you can run with pytest.
 ```
-First time setup - Please enter your student id number, your password and your district domain separated by commas.
-```
-Enter your student id number, your password, and your district domain (the first part of your login URL) separated by commas.
-(This is an example)
-```
-123456,mysupersecurepassword,https://portal.somedistrict.us
-```
-If you correctly entered your login details, it should output:
-```
-Did you mean to do something? Try adding the argument "--help"
-```
-### Demonstration
-For this demonstration, let's follow through with that suggestion:
-```
-python assignment_list.py --help
+pip3 install pytest
 ```
 ```
-usage: assignment_list.py [-h] [-c ASSIGNMENT_NUMBER] [-a "ASSIGNMENT TEXT"]
-                          [-i "ASSIGNMENT TEXT"] [-l]
+pytest
+```
+### What do the tests do?
+There are currently 2 basic tests:
+* `help_screen_test.py`, which tests that the click help screen appears when no arguments are called
+* `invalid_credentials_test.py`, which tests that Assignment List correctly handles situations where the Student Vue credentials are incorrect
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -c ASSIGNMENT_NUMBER, --complete ASSIGNMENT_NUMBER
-                        Mark an assignment as complete
-  -a "ASSIGNMENT TEXT", --add "ASSIGNMENT TEXT"
-                        Add an assignment not found in Student Vue
-  -i "ASSIGNMENT TEXT", --incomplete "ASSIGNMENT TEXT"
-                        Mark a complete assignment as incomplete
-  -l, --list            List to do assignments
-```
-Now, let's break it down:
-* There are five commands
-    - "--help" or "-h" which shows this help screen
-    - "--complete" or "-c" which completes an assignment
-    - "--add" or "-a" which adds an assignment that is not present in Student Vue
-    - "--incomplete" or "-i" which marks a complete assignment as incomplete
-    - "--list" or "-l" which shows you the assignment list
-#### Testing it out
-Now let's test out these features.
-First off, we check the assignments we have due:
-```
-python assignment_list.py --list
-```
-```
--- Assignment List --
-1. Test assignment
-2. Algebra assignment from Student Vue
-```
-Now that we have the list, we will mark the second one as complete:
-```
-python assignment_list.py --complete 2
-```
-```
-Marked assignment #2 as complete
-```
-We then check the list again
-```
-python assignment_list.py -l
-```
-```
--- Assignment List --
-1. Test assignment
-```
-It's gone! Let's try adding an assignment manually
-```
-python assignment_list.py --add "Some assignment that was not added"
-```
-```
-Added assignment "Some assignment that was not added"
-```
-To make sure that what we did worked, let's check the list once again
-```
-python assignment_list.py --list
-```
-```
--- Assignment List --
-1. Some assignment that was not added
-2. Test assignment
-```
-Whoops! Turns out that algebra worksheet had a backside... Let's fix that
-```
-python assignment_list.py --incomplete "Algebra assignment from Student Vue"
-```
-```
-Marked assignment "Algebra assignment from Student Vue" as incomplete
-```
-And if we pull up the list:
-```
-python assignment_list.py -l
-```
-```
--- Assignment List --
-1. Some assignment that was not added
-2. Algebra assignment from Student Vue
-3. Test assignment
-```
+These tests are mainly to make sure that Assignment List isn't completely broken, and don't test the core functionality of Assignment List.
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [releases on this repository](https://github.com/Whodiduexpect/assignment-list/releases). 
+
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Acknowledgments
+
+* [Student Vue API, Unofficial Python API for StudentVue Portals](https://github.com/kajchang/StudentVue)
