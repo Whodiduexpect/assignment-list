@@ -21,11 +21,12 @@ def listAssignments(assignments):
         assignments_view = assignments_view.drop(columns=['is_completed'])
         click.echo(assignments_view)
 
+
 def listCompleted(assignments):
     if not len(assignments):
         click.echo('No assignments completed yet.')
     else:
-        assignments_view = assignments[assignments['is_completed'] != False]
+        assignments_view = assignments[assignments['is_completed']]
         assignments_view = assignments_view.drop(columns=['is_completed'])
         click.echo(assignments_view)
 
