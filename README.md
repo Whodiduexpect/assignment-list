@@ -39,7 +39,7 @@ python assignment_list.py list
 1                               Test Assignment #2        2222222    Last, F  TESTCLASS II(2)   1/01/2019
 2                               Test Assignment #3        3333333   Last, F  TESTCLASS III(3)   1/01/2019
 ```
-Full usage instructions at [USAGE.md](USAGE.md)
+For full usage instructions, see [USAGE.md](USAGE.md)
 
 ## Running the tests
 Assignment List has rather primitive tests that you can run with pytest.
