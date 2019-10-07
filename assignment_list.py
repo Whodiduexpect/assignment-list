@@ -21,6 +21,14 @@ def listAssignments(assignments):
         assignments_view = assignments_view.drop(columns=['is_completed'])
         click.echo(assignments_view)
 
+def listCompleted(assignments):
+    if not len(assignments):
+        click.echo('No assignments completed yet.')
+    else:
+        assignments_view = assignments[assignments['is_completed'] != False]
+        assignments_view = assignments_view.drop(columns=['is_completed'])
+        click.echo(assignments_view)
+
 
 def getDataFromFile(filename, split_char):
     file = openData(filename, 'r')
@@ -85,6 +93,9 @@ def main():
         if category == 'current':
             assignments = studentvue_parser.getAssignments(credentials)
             listAssignments(assignments)
+        elif category == 'completed':
+            assignments = studentvue_parser.getAssignments(credentials)
+            listCompleted(assignments)
         else:
             click.echo(
                 '"%s" is not a valid category. Currently, the only valid category is current' %
@@ -167,6 +178,7 @@ def main():
         convert_dict = {'Assignment ID': int}
         assignments = assignments.astype(convert_dict)
         updateCsv(assignments)
+        click.echo('Successfully added assignment "{0}"'.format(title))
 
     # Execute command
     cli(obj={})
