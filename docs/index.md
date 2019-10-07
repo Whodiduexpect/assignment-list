@@ -13,4 +13,4 @@ Assignment List is a command-line tool that parses Student Vue, and lets you vie
 [Read the installation instructions](installation.md) (it's not as simple as download and run, but it's still manageable)
 
 ## Is there some kind of usage instructions?
-Well, yes, of course. [Read the usage instructions](usage.html)
+Well, yes, of course. [Read the usage instructions](usage.md)
