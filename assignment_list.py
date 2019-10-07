@@ -64,7 +64,7 @@ def main():
     @click.group()
     def cli():
         '''
-        A better Student Vue assignment manager, (c) 2019 Whodiduexpect
+        A Student Vue assignment manager
         '''
 
     @cli.command()
