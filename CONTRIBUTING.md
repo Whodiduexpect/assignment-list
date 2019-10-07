@@ -6,7 +6,7 @@ First off, thank you for considering contributing to Assignment List.
 ### How can I help?
 
 * Implementing features (the [feature tracker](https://github.com/Whodiduexpect/assignment-list/projects/1) is a good place to look for new features to implement)
-* Fixing bugs (Github Issues is a good place to look)
+* Fixing bugs ([Github Issues](https://github.com/Whodiduexpect/assignment-list/issues) is a good place to look)
 * Correcting or clarifying the documentation
 * Creating bug reports and feature requests through an [issue](https://github.com/Whodiduexpect/assignment-list/issues/new/choose)
 
