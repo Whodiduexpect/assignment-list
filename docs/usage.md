@@ -1,4 +1,6 @@
-# Introduction
+# Usage Instructions
+
+## Introduction
 
 Running `python assignment_list.py` or `python assignment_list.py --help` shows a help message:
 ```
@@ -37,12 +39,12 @@ Options:
   --help  Show this message and exit.
 ```
 
-# The add command
+## The add command
 
 The `add` command adds an assignment to your list. It accepts the parameters `title` and `date`, it then asks you which period to add it to. If your title is more than a word long, you need to surround it with quotation marks.
 Please note that the add command assigns an 8 digit number to the assignment, rather than the 7 digit Student Vue ID.
 
-## Example usage
+### Example usage
 ```
 python assignment_list.py add "Assignment Title" 1/1/2019
 ```
@@ -64,11 +66,11 @@ Which class period do you want to add the assignment "Assignment Title" to? 1
 Successfully added assignment "Assignment Title"
 ```
 
-# The complete command
+## The complete command
 
  The `complete` command completes an assignment and hides it from the regular list. It takes the `ID` of the assignment as a parameter.
  
-## Example Usage
+### Example Usage
  
  ```
  python assignment_list.py complete 1111111
@@ -77,10 +79,10 @@ Successfully added assignment "Assignment Title"
 Marked assignment #1111111 as complete
 ```
 
-# The list command
+## The list command
 The `list` command lists the assignments. Currently, it has 2 optional categories, which are `current` and `completed`. The reason these categories are optional is that by default it's `current`, as to not require an unnecessary long command.
 
-## Example Usage
+### Example Usage
 
 `python assignment_list.py list` OR `python assignment_list.py list current`
 ```
@@ -90,10 +92,10 @@ The `list` command lists the assignments. Currently, it has 2 optional categorie
 2                               Test Assignment #3        3333333   Last, F  TESTCLASS III(3)   1/01/2019
 ```
 
-# The reset command
+## The reset command
 The `reset` command resets the student vue credentials in the event that they are incorrect or you want to switch accounts.
 
-## Example Usage
+### Example Usage
 ```
 python assignment_list.py reset
 ```
