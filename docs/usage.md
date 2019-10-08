@@ -105,3 +105,4 @@ Please enter Student ID: 123456
 Please enter password (hidden): 
 Please enter district login url: https://sis-portal.somedistrict.us
 ```
+[Go back](https://assignment-list.computer)
