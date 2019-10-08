@@ -68,7 +68,7 @@ Successfully added assignment "Assignment Title"
 
  The `complete` command completes an assignment and hides it from the regular list. It takes the `ID` of the assignment as a parameter.
  
- ## Example Usage
+## Example Usage
  
  ```
  python assignment_list.py complete 1111111
