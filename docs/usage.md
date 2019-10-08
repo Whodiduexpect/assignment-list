@@ -41,6 +41,7 @@ Options:
 
 The `add` command adds an assignment to your list. It accepts the parameters `title` and `date`, it then asks you which period to add it to. If your title is more than a word long, you need to surround it with quotation marks.
 Please note that the add command assigns an 8 digit number to the assignment, rather than the 7 digit Student Vue ID.
+
 ## Example usage
 ```
 python assignment_list.py add "Assignment Title" 1/1/2019
@@ -66,7 +67,9 @@ Successfully added assignment "Assignment Title"
 # The complete command
 
  The `complete` command completes an assignment and hides it from the regular list. It takes the `ID` of the assignment as a parameter.
+ 
  ## Example Usage
+ 
  ```
  python assignment_list.py complete 1111111
  ```
@@ -76,7 +79,9 @@ Marked assignment #1111111 as complete
 
 # The list command
 The `list` command lists the assignments. Currently, it has 2 optional categories, which are `current` and `completed`. The reason these categories are optional is that by default it's `current`, as to not require an unnecessary long command.
+
 ## Example Usage
+
 `python assignment_list.py list` OR `python assignment_list.py list current`
 ```
                                         Assignment  Assignment ID                  Class Name    Due Date
