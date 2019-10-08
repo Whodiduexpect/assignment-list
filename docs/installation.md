@@ -13,6 +13,7 @@ Assignment List requires [Python](https://www.python.org/downloads/) 3.6 or late
 	```
 	pip3 install -r requirements.txt
 	```
+
 And now to test it:
 ```
 python assignment_list.py
