@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
-import sys
 import os
+import random
+import sys
+from pathlib import Path
+
 import click
 import pandas as pd
-from pathlib import Path
+
 import studentvue_parser
-import random
 
 
 # Define functions
-def openData(file, mode):
+def open_data(file, mode):
     return open(Path('data/%s' % file), mode)
 
 
-def listAssignments(assignments):
+def list_assignments(assignments):
     if not len(assignments):
         click.echo('No assignments to do!')
     else:
@@ -22,7 +24,7 @@ def listAssignments(assignments):
         click.echo(assignments_view)
 
 
-def listCompleted(assignments):
+def list_completed(assignments):
     if not len(assignments):
         click.echo('No assignments completed yet.')
     else:
@@ -31,27 +33,27 @@ def listCompleted(assignments):
         click.echo(assignments_view)
 
 
-def getDataFromFile(filename, split_char):
-    file = openData(filename, 'r')
+def get_data_from_file(filename, split_char):
+    file = open_data(filename, 'r')
     output = file.read().split(split_char)
     file.close()
     return output
 
 
-def updateCsv(assignments):
+def update_csv(assignments):
     assignments.to_csv(
         Path('data/studentvue_assignments.csv'),
         sep='/',
         index=False)
 
 
-def createIfNotExist(filename):
+def create_if_not_exist(filename):
     if not os.path.exists(Path('data/%s' % filename)):
-        file = openData(filename, 'w')
+        file = open_data(filename, 'w')
         file.close()
 
 
-def pointProblematicFile(path):
+def point_problematic_file(path):
     click.echo('Full path to problematic file: %s' % Path(path).absolute())
 
 
@@ -64,39 +66,39 @@ def main():
             # Create one
             os.mkdir('data')
         # Now that we know we have a data folder, let's set the credentials
-        studentvue_parser.setCredentials()
+        studentvue_parser.set_credentials()
 
     # Read the credential file
-    credentials = getDataFromFile('studentvue_credentials', ',')
+    credentials = get_data_from_file('studentvue_credentials', ',')
 
     # Define commands
     @click.group()
     def cli():
-        '''
+        """
         A Student Vue assignment manager
-        '''
+        """
 
     @cli.command()
     def reset():
-        '''
+        """
         Reset credentials
-        '''
-        studentvue_parser.setCredentials()
+        """
+        studentvue_parser.set_credentials()
 
     @cli.command()
     @click.argument('category', required=False)
     def list(category):
-        '''
+        """
         List assignments by CATEGORY (defaults to 'current')
-        '''
+        """
         if not category:
             category = 'current'
         if category == 'current':
-            assignments = studentvue_parser.getAssignments(credentials)
-            listAssignments(assignments)
+            assignments = studentvue_parser.get_assignments(credentials)
+            list_assignments(assignments)
         elif category == 'completed':
-            assignments = studentvue_parser.getAssignments(credentials)
-            listCompleted(assignments)
+            assignments = studentvue_parser.get_assignments(credentials)
+            list_completed(assignments)
         else:
             click.echo(
                 '"%s" is not a valid category. Currently, the only valid category is current' %
@@ -105,16 +107,16 @@ def main():
     @cli.command()
     @click.argument('id')
     def complete(id):
-        '''
+        """
         Complete an assignment by assignment ID
-        '''
-        assignments = studentvue_parser.getAssignments(credentials)
+        """
+        assignments = studentvue_parser.get_assignments(credentials)
         try:
             assignments.at[assignments.loc[assignments['Assignment ID'].isin(
                 [id])].index, 'is_completed'] = True
-            updateCsv(assignments)
+            update_csv(assignments)
         except BaseException:
-            click.echo('Failed to complete assignemnt #%s' % id)
+            click.echo('Failed to complete assignment #%s' % id)
             sys.exit()
         click.echo('Marked assignment #%s as complete' % id)
 
@@ -122,9 +124,9 @@ def main():
     @click.argument('title')
     @click.argument('date')
     def add(title, date):
-        '''
+        """
         Add a new assignment with the TITLE and DATE
-        '''
+        """
 
         # Get schedule
         classes = studentvue_parser.getSchedule(credentials)
@@ -160,7 +162,7 @@ def main():
                                             classes[class_period - 1].period)
 
         # Generate a assignment list 8 digit id, and make sure it's unique
-        assignments = studentvue_parser.getAssignments(credentials)
+        assignments = studentvue_parser.get_assignments(credentials)
         id_unique = False
 
         while not id_unique:
@@ -174,11 +176,11 @@ def main():
 
         # Make the assignment based on data we have collected/generated
         assignment_df = pd.DataFrame({'Assignment ID': [generated_id], 'Class Name': [
-                                     class_name], 'Due Date': [date], 'Assignment': [title], 'is_completed': ['False']})
+            class_name], 'Due Date': [date], 'Assignment': [title], 'is_completed': ['False']})
         assignments = assignments.append(assignment_df, sort=True)
         convert_dict = {'Assignment ID': int}
         assignments = assignments.astype(convert_dict)
-        updateCsv(assignments)
+        update_csv(assignments)
         click.echo('Successfully added assignment "{0}"'.format(title))
 
     # Execute command

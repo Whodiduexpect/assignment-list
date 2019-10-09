@@ -7,19 +7,19 @@ import pandas as pd
 from getpass import getpass
 
 
-def setCredentials():
-    assignment_list.createIfNotExist('studentvue_credentials')
+def set_credentials():
+    assignment_list.create_if_not_exist('studentvue_credentials')
     click.echo('-- Credentials setup/reset --')
     student_id = input('Please enter Student ID: ')
     password = getpass('Please enter password (hidden): ')
     district_url = input('Please enter district login url: ')
-    file = assignment_list.openData('studentvue_credentials', 'w')
+    file = assignment_list.open_data('studentvue_credentials', 'w')
     file.write(student_id + ',' + password + ',' + district_url)
     file.close()
     return True
 
 
-def getAssignments(credentials):
+def get_assignments(credentials):
     # Login to Student Vue
     try:
         sv = StudentVue(credentials[0], credentials[1], credentials[2])
@@ -28,11 +28,10 @@ def getAssignments(credentials):
             'Invalid credentials. You might want to use:\n   python assignment_list.py reset')
         sys.exit()
 
-    # Create CSV file if it dosen't exist
-    assignment_list.createIfNotExist('studentvue_assignments.csv')
-    assignments = []
+    # Create CSV file if it doesn't exist
+    assignment_list.create_if_not_exist('studentvue_assignments.csv')
     try:
-        assignments = pd.read_csv(Path('data/studentvue_assignments.csv'),  # reads 'assignment_id', 'class_name', 'date', 'name', 'is_completed'
+        assignments = pd.read_csv(Path('data/studentvue_assignments.csv'),
                                   sep='/')
     except BaseException:
         assignments = pd.DataFrame({'Assignment ID': [], 'Class Name': [], 'Due Date': [
@@ -40,10 +39,10 @@ def getAssignments(credentials):
         click.echo('Invalid or empty file detected... discarding file')
     try:
         studentvue_assignments = sv.get_assignments()
-    except Exception as e:
+    except BaseException:
         click.echo(
-            'Failed to get Student Vue assignments... Please see https://github.com/kajchang/StudentVue for help on this issue.\n The specific error is:',
-            sys.exc_info()[1])
+            'Failed to get Student Vue assignments... Please see https://github.com/kajchang/StudentVue for help on '
+            'this issue.')
         sys.exit()
     found_duplicate = False
     for sv_assignment in studentvue_assignments:
@@ -63,7 +62,7 @@ def getAssignments(credentials):
             assignments = assignments.append(assignment_df, sort=True)
     convert_dict = {'Assignment ID': int}
     assignments = assignments.astype(convert_dict)
-    assignment_list.updateCsv(assignments)
+    assignment_list.update_csv(assignments)
     return assignments
 
 
