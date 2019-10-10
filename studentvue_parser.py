@@ -1,10 +1,12 @@
-import assignment_list
-import click
 import sys
-from studentvue import StudentVue
-from pathlib import Path
-import pandas as pd
 from getpass import getpass
+from pathlib import Path
+
+import click
+import pandas as pd
+from studentvue import StudentVue
+
+import assignment_list
 
 
 def set_credentials():
@@ -23,7 +25,7 @@ def get_assignments(credentials):
     # Login to Student Vue
     try:
         sv = StudentVue(credentials[0], credentials[1], credentials[2])
-    except BaseException:
+    except IndexError:
         click.echo(
             'Invalid credentials. You might want to use:\n   python assignment_list.py reset')
         sys.exit()
@@ -33,7 +35,7 @@ def get_assignments(credentials):
     try:
         assignments = pd.read_csv(Path('data/studentvue_assignments.csv'),
                                   sep='/')
-    except BaseException:
+    except pd.io.common.EmptyDataError:
         assignments = pd.DataFrame({'Assignment ID': [], 'Class Name': [], 'Due Date': [
         ], 'Assignment': [], 'is_completed': []})
         click.echo('Invalid or empty file detected... discarding file')
@@ -66,11 +68,11 @@ def get_assignments(credentials):
     return assignments
 
 
-def getSchedule(credentials):
+def get_schedule(credentials):
     # Login to Student Vue
     try:
         sv = StudentVue(credentials[0], credentials[1], credentials[2])
-    except BaseException:
+    except IndexError:
         click.echo(
             'Invalid credentials. You can reset your credentials with:\n   python assignment_list.py reset')
         sys.exit()

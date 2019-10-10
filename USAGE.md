@@ -10,14 +10,16 @@ Options:
   --help  Show this message and exit.
 
 Commands:
-  add       Add a new assignment with the TITLE and DATE
-  complete  Complete an assignment by assignment ID
-  list      List assignments by CATEGORY (defaults to 'current')
-  reset     Reset credentials
+  add         Add a new assignment with the TITLE and DATE
+  complete    Complete an assignment by assignment ID
+  incomplete  Mark an assignment as incomplete by assignment ID
+  list        List assignments by CATEGORY (defaults to 'current')
+  reset       Reset credentials
 ```
-As you can see, there are 4 commands:
+As you can see, there are 5 commands:
 * add
 * complete
+* incomplete
 * list
 * reset
  
@@ -65,7 +67,7 @@ Successfully added assignment "Assignment Title"
 
 # The `complete` command
 
- The `complete` command completes an assignment and hides it from the regular list. It takes the `ID` of the assignment as a parameter.
+The `complete` command completes an assignment and hides it from the regular list. It takes the `ID` of the assignment as a parameter. This command is meant to be used after seeing the list of assignments.
  ## Example Usage
  ```
  python assignment_list.py complete 1111111
@@ -74,6 +76,16 @@ Successfully added assignment "Assignment Title"
 Marked assignment #1111111 as complete
 ```
 
+# The `incomplete` command
+ The `incomplete` command marks an assignment as incomplete and reveals it to the regular list again. It takes the `ID` of the assignment as a parameter. This command is meant to be used after viewing the list of completed assignments (can be viewed with `python assignment_list.py list completed`)
+ ## Example Usage
+ ```
+ python assignment_list.py incomplete 1111111
+ ```
+ ```
+ Marked assignment #1111111 as incomplete
+ ```
+ 
 # The `list` command
 The `list` command lists the assignments. Currently, it has 2 optional categories, which are `current` and `completed`. The reason these categories are optional is that by default it's `current`, as to not require an unnecessary long command.
 ## Example Usage

@@ -12,14 +12,16 @@ Options:
   --help  Show this message and exit.
 
 Commands:
-  add       Add a new assignment with the TITLE and DATE
-  complete  Complete an assignment by assignment ID
-  list      List assignments by CATEGORY (defaults to 'current')
-  reset     Reset credentials
+  add         Add a new assignment with the TITLE and DATE
+  complete    Complete an assignment by assignment ID
+  incomplete  Mark an assignment as incomplete by assignment ID
+  list        List assignments by CATEGORY (defaults to 'current')
+  reset       Reset credentials
 ```
-As you can see, there are 4 commands:
+As you can see, there are 5 commands:
 * add
 * complete
+* incomplete
 * list
 * reset
  
@@ -68,13 +70,11 @@ Successfully added assignment "Assignment Title"
 
 ## The complete command
 
- The `complete` command completes an assignment and hides it from the regular list. It takes the `ID` of the assignment as a parameter.
- 
-### Example Usage
- 
- ```
- python assignment_list.py complete 1111111
- ```
+ The `complete` command completes an assignment and hides it from the regular list. It takes the `ID` of the assignment as a parameter. This command is meant to be used after seeing the list of assignments.
+## Example Usage
+```
+python assignment_list.py complete 1111111
+```
 ```
 Marked assignment #1111111 as complete
 ```
@@ -90,6 +90,19 @@ The `list` command lists the assignments. Currently, it has 2 optional categorie
 0                               Test Assignment #1        1111111     Last, F  TESTCLASS I(1)   1/01/2019
 1                               Test Assignment #2        2222222    Last, F  TESTCLASS II(2)   1/01/2019
 2                               Test Assignment #3        3333333   Last, F  TESTCLASS III(3)   1/01/2019
+```
+
+# The incomplete command
+
+The `incomplete` command marks an assignment as incomplete and reveals it to the regular list again. It takes the `ID` of the assignment as a parameter. This command is meant to be used after viewing the list of completed assignments (can be viewed with `python assignment_list.py list completed`)
+
+## Example Usage
+
+```
+python assignment_list.py incomplete 1111111
+```
+```
+Marked assignment #1111111 as incomplete
 ```
 
 ## The reset command

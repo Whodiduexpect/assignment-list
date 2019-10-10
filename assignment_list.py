@@ -16,20 +16,20 @@ def open_data(file, mode):
 
 
 def list_assignments(assignments):
-    if not len(assignments):
+    assignments_view = assignments[assignments['is_completed'] != True]
+    assignments_view = assignments_view.drop(columns=['is_completed'])
+    if assignments_view.empty:
         click.echo('No assignments to do!')
     else:
-        assignments_view = assignments[assignments['is_completed'] != True]
-        assignments_view = assignments_view.drop(columns=['is_completed'])
         click.echo(assignments_view)
 
 
 def list_completed(assignments):
-    if not len(assignments):
+    assignments_view = assignments[assignments['is_completed']]
+    assignments_view = assignments_view.drop(columns=['is_completed'])
+    if assignments_view.empty:
         click.echo('No assignments completed yet.')
     else:
-        assignments_view = assignments[assignments['is_completed']]
-        assignments_view = assignments_view.drop(columns=['is_completed'])
         click.echo(assignments_view)
 
 
@@ -51,10 +51,6 @@ def create_if_not_exist(filename):
     if not os.path.exists(Path('data/%s' % filename)):
         file = open_data(filename, 'w')
         file.close()
-
-
-def point_problematic_file(path):
-    click.echo('Full path to problematic file: %s' % Path(path).absolute())
 
 
 # Main
@@ -101,7 +97,7 @@ def main():
             list_completed(assignments)
         else:
             click.echo(
-                '"%s" is not a valid category. Currently, the only valid category is current' %
+                '"%s" is not a valid category. The categories are "current" and "completed"' %
                 category)
 
     @cli.command()
@@ -121,6 +117,22 @@ def main():
         click.echo('Marked assignment #%s as complete' % id)
 
     @cli.command()
+    @click.argument('id')
+    def incomplete(id):
+        """
+        Mark an assignment as incomplete by assignment ID
+        """
+        assignments = studentvue_parser.get_assignments(credentials)
+        try:
+            assignments.at[assignments.loc[assignments['Assignment ID'].isin(
+                [id])].index, 'is_completed'] = False
+            update_csv(assignments)
+        except BaseException:
+            click.echo('Failed to mark assignment #%s as incomplete' % id)
+            sys.exit()
+        click.echo('Marked assignment #%s as incomplete' % id)
+
+    @cli.command()
     @click.argument('title')
     @click.argument('date')
     def add(title, date):
@@ -129,7 +141,7 @@ def main():
         """
 
         # Get schedule
-        classes = studentvue_parser.getSchedule(credentials)
+        classes = studentvue_parser.get_schedule(credentials)
         valid = False
         while not valid:
             # Print all the classes
@@ -142,18 +154,15 @@ def main():
                 title)
             try:  # Check if the input can even be converted to an integer!
                 class_period = int(class_period_input)
-            except BaseException:
-                if class_period > len(classes) or class_period < 1:
-                    click.echo('"%s" is an invalid input' % class_period)
-                else:
-                    valid = True
+            except ValueError:
+                click.echo('"%s" is an invalid input' % class_period)
             # Check that if the input is an integer, that it is a valid period
             if class_period > len(classes) or class_period < 1:
                 click.echo("Invalid period.\n")
             else:
                 valid = True
 
-        # Auto generate the class as if it was from Student Vue
+        # Auto generate the class name as if it was from Student Vue
         teacher_fullname = classes[class_period - 1].teacher.name.split(' ')
         teacher_label = '{0}, {1}'.format(
             teacher_fullname[1], teacher_fullname[0][:1])
