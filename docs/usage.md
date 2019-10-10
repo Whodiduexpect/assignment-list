@@ -92,11 +92,11 @@ The `list` command lists the assignments. Currently, it has 2 optional categorie
 2                               Test Assignment #3        3333333   Last, F  TESTCLASS III(3)   1/01/2019
 ```
 
-# The incomplete command
+## The incomplete command
 
 The `incomplete` command marks an assignment as incomplete and reveals it to the regular list again. It takes the `ID` of the assignment as a parameter. This command is meant to be used after viewing the list of completed assignments (can be viewed with `python assignment_list.py list completed`)
 
-## Example Usage
+### Example Usage
 
 ```
 python assignment_list.py incomplete 1111111
