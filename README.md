@@ -50,9 +50,11 @@ pip3 install pytest
 pytest
 ```
 ### What do the tests do?
-There are currently 2 basic tests:
+There are currently 4 basic tests:
 * `help_screen_test.py`, which tests that the click help screen appears when no arguments are called
 * `invalid_credentials_test.py`, which tests that Assignment List correctly handles situations where the Student Vue credentials are incorrect
+* `list_assignments_none_test.py`, which tests that Assignment List correctly reports that there are no current assignments
+* `list_completed_none_test.py`, which tests that Assignment List correctly reports that there are no completed assignments
 
 These tests are mainly to make sure that Assignment List isn't completely broken, and don't test the core functionality of Assignment List.
 
