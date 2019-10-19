@@ -6,7 +6,7 @@ import click
 import pandas as pd
 from studentvue import StudentVue
 
-import assignment_list
+from . import assignmentlist
 
 
 def set_credentials():
@@ -58,9 +58,9 @@ def get_assignments(credentials):
                 {
                     'Assignment ID': [
                         sv_assignment.assignment_id], 'Class Name': [
-                        sv_assignment.class_name], 'Due Date': [
-                        sv_assignment.date], 'Assignment': [
-                        sv_assignment.name], 'is_completed': ['False']})
+                    sv_assignment.class_name], 'Due Date': [
+                    sv_assignment.date], 'Assignment': [
+                    sv_assignment.name], 'is_completed': ['False']})
             assignments = assignments.append(assignment_df, sort=True)
     convert_dict = {'Assignment ID': int}
     assignments = assignments.astype(convert_dict)

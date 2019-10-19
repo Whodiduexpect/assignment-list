@@ -7,7 +7,7 @@ from pathlib import Path
 import click
 import pandas as pd
 
-import studentvue_parser
+from . import studentvue_parser
 
 
 # Define functions
@@ -142,9 +142,10 @@ def main():
 
         # Get schedule
         classes = studentvue_parser.get_schedule(credentials)
+
+        # Print all the classes
         valid = False
         while not valid:
-            # Print all the classes
             for class_ in classes:
                 print(class_)
 
