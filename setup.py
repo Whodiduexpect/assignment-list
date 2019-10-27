@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='assignmentlist',
-    version='v1.0.3-beta',
+    version='v1.0.0',
     packages=['assignmentlist'],
     url='https://github.com/Whodiduexpect/assignment-list',
     license='MIT',
