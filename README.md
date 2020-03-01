@@ -1,4 +1,4 @@
-![Tests](https://github.com/Whodiduexpect/assignment-list/workflows/Tests/badge.svg)
+https://github.com/Whodiduexpect/assignment-list/workflows/Tests/badge.svg
 # Assignment List
 
 Assignment list is a terminal-based assignment manager for the Student Vue web portal. Assignment List is meant to replace the lack of features in Student Vue by giving tools to manage assignments, like a fancy integrated to-do list. If you just want a CLI Student Vue interface, [check out this neat project.](https://github.com/kajchang/studentvue-cli)
