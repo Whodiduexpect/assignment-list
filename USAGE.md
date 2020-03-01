@@ -87,9 +87,9 @@ Marked assignment #1111111 as complete
  ```
  
 # The `list` command
-The `list` command lists the assignments. Currently, it has 2 optional categories, which are `current` and `completed`. The reason these categories are optional is that by default it's `current`, as to not require an unnecessary long command.
+The `list` command lists the assignments. Currently, it has 3 optional categories, which are `current`, `completed`, and `added` (assignments added via the `add` command). The reason these categories are optional is that by default it's `current`, as to not require an unnecessary long command.
 ## Example Usage
-`python assignment_list.py list` OR `python assignment_list.py list current`
+`python assignment_list.py list` or `python assignment_list.py list current`
 ```
                                         Assignment  Assignment ID                  Class Name    Due Date
 0                               Test Assignment #1        1111111     Last, F  TESTCLASS I(1)   1/01/2019
