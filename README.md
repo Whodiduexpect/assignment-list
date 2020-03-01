@@ -55,6 +55,7 @@ There are currently 4 basic tests:
 * `invalid_credentials_test.py`, which tests that Assignment List correctly handles situations where the Student Vue credentials are incorrect
 * `list_assignments_none_test.py`, which tests that Assignment List correctly reports that there are no current assignments
 * `list_completed_none_test.py`, which tests that Assignment List correctly reports that there are no completed assignments
+* `list_added_none_test.py`, which tests that Assignment List correctly reports that there are no added assignments
 
 These tests are mainly to make sure that Assignment List isn't completely broken, and don't test the core functionality of Assignment List.
 
