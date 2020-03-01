@@ -32,6 +32,16 @@ def list_completed(assignments):
     else:
         click.echo(assignments_view)
 
+def list_added(assignments):
+    assignments_view = assignments.drop(columns=['is_completed'])
+    assignments_view['Assignment ID'] = assignments['Assignment ID'].astype('str')
+    mask = (assignments_view['Assignment ID'].str.len() == 8)
+    assignments_view = assignments_view.loc[mask]
+    if assignments_view.empty:
+        click.echo('No assignments added yet.')
+    else:
+        click.echo(assignments_view)
+
 
 def get_data_from_file(filename, split_char):
     file = open_data(filename, 'r')
@@ -65,7 +75,6 @@ def main():
         studentvue_parser.set_credentials()
 
     # Read the credential file
-    credentials = get_data_from_file('studentvue_credentials', ',')
 
     # Define commands
     @click.group()
@@ -90,11 +99,15 @@ def main():
         if not category:
             category = 'current'
         if category == 'current':
+            credentials = get_data_from_file('studentvue_credentials', ',')
             assignments = studentvue_parser.get_assignments(credentials)
             list_assignments(assignments)
         elif category == 'completed':
-            assignments = studentvue_parser.get_assignments(credentials)
+            assignments = studentvue_parser.get_stored_assignment_data()
             list_completed(assignments)
+        elif category == 'added':
+            assignments = studentvue_parser.get_stored_assignment_data()
+            list_added(assignments)
         else:
             click.echo(
                 '"%s" is not a valid category. The categories are "current" and "completed"' %
@@ -106,12 +119,13 @@ def main():
         """
         Complete an assignment by assignment ID
         """
+        credentials = get_data_from_file('studentvue_credentials', ',')
         assignments = studentvue_parser.get_assignments(credentials)
         try:
             assignments.at[assignments.loc[assignments['Assignment ID'].isin(
                 [id])].index, 'is_completed'] = True
             update_csv(assignments)
-        except BaseException:
+        except Exception:
             click.echo('Failed to complete assignment #%s' % id)
             sys.exit()
         click.echo('Marked assignment #%s as complete' % id)
@@ -122,12 +136,13 @@ def main():
         """
         Mark an assignment as incomplete by assignment ID
         """
+        credentials = get_data_from_file('studentvue_credentials', ',')
         assignments = studentvue_parser.get_assignments(credentials)
         try:
             assignments.at[assignments.loc[assignments['Assignment ID'].isin(
                 [id])].index, 'is_completed'] = False
             update_csv(assignments)
-        except BaseException:
+        except Exception:
             click.echo('Failed to mark assignment #%s as incomplete' % id)
             sys.exit()
         click.echo('Marked assignment #%s as incomplete' % id)
@@ -141,6 +156,7 @@ def main():
         """
 
         # Get schedule
+        credentials = get_data_from_file('studentvue_credentials', ',')
         classes = studentvue_parser.get_schedule(credentials)
         valid = False
         while not valid:
@@ -171,6 +187,7 @@ def main():
                                             classes[class_period - 1].period)
 
         # Generate a assignment list 8 digit id, and make sure it's unique
+        credentials = get_data_from_file('studentvue_credentials', ',')
         assignments = studentvue_parser.get_assignments(credentials)
         id_unique = False
 

@@ -21,7 +21,23 @@ def set_credentials():
     return True
 
 
+def get_stored_assignment_data():
+    # Create CSV file if it doesn't exist
+    assignment_list.create_if_not_exist('studentvue_assignments.csv')
+    try:
+        stored_assignments = pd.read_csv(Path('data/studentvue_assignments.csv'),
+                                         sep='/')
+    except pd.io.common.EmptyDataError:
+        stored_assignments = pd.DataFrame({'Assignment ID': [], 'Class Name': [], 'Due Date': [
+        ], 'Assignment': [], 'is_completed': []})
+        click.echo('Invalid or empty file detected... discarding file')
+    convert_dict = {'Assignment ID': int}
+    stored_assignments = stored_assignments.astype(convert_dict)
+    return stored_assignments
+
+
 def get_assignments(credentials):
+    assignments = get_stored_assignment_data()
     # Login to Student Vue
     try:
         sv = StudentVue(credentials[0], credentials[1], credentials[2])
@@ -29,19 +45,9 @@ def get_assignments(credentials):
         click.echo(
             'Invalid credentials. You might want to use:\n   python assignment_list.py reset')
         sys.exit()
-
-    # Create CSV file if it doesn't exist
-    assignment_list.create_if_not_exist('studentvue_assignments.csv')
-    try:
-        assignments = pd.read_csv(Path('data/studentvue_assignments.csv'),
-                                  sep='/')
-    except pd.io.common.EmptyDataError:
-        assignments = pd.DataFrame({'Assignment ID': [], 'Class Name': [], 'Due Date': [
-        ], 'Assignment': [], 'is_completed': []})
-        click.echo('Invalid or empty file detected... discarding file')
     try:
         studentvue_assignments = sv.get_assignments()
-    except BaseException:
+    except Exception:
         click.echo(
             'Failed to get Student Vue assignments... Please see https://github.com/kajchang/StudentVue for help on '
             'this issue.')
