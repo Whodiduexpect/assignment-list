@@ -3,16 +3,32 @@ import os
 import random
 import sys
 from pathlib import Path
+import datetime
 
 import click
 import pandas as pd
 
 import studentvue_parser
 
+# Exception Handler
+
+
+def exceptionHandler(exception_type, exception, traceback, debug_hook=sys.excepthook):
+    if debug_mode:
+        print('\n*** Error:')
+        debug_hook(exception_type, exception, traceback)
+    else:
+        print("\t%s: %s" % (exception_type.__name__, exception))
 
 # Define functions
+
+
 def open_data(file, mode):
-    return open(Path('data/%s' % file), mode)
+    try:
+        return open(Path('data/{}'.format(file)), mode)
+    except IOError as e:
+        raise IOError(
+            "A file error has occurred: {}\nConsider checking your file permissions.".format(e))
 
 
 def list_assignments(assignments):
@@ -60,38 +76,54 @@ def update_csv(assignments):
 
 
 def create_if_not_exist(filename):
-    if not os.path.exists(Path('data/%s' % filename)):
+    if not os.path.exists(Path('data/{}'.format(filename))):
         file = open_data(filename, 'w')
         file.close()
 
 
 # Define commands
 @click.group()
-def cli():
+@click.option('--debug/--no-debug', default=False, help="Enable/disable debug mode.")
+def cli(debug):
     """
     A Student Vue assignment manager
+
+    Copyright (C) 2019-2020 Whodiduexpect
     """
+    global debug_mode
+    debug_mode = debug
 
 
 @cli.command()
 def reset():
     """
-    Reset credentials
+    Reset Student Vue credentials.
     """
     studentvue_parser.set_credentials()
+
+
+@cli.command()
+def update():
+    """
+    Update database with the latest data from Student Vue.
+    """
+    click.echo("Updating local assignment database...")
+    credentials = get_data_from_file('studentvue_credentials', ',')
+    assignments = studentvue_parser.get_assignments(credentials)
+    update_csv(assignments)
+    click.echo("Synced assignments successfully.")
 
 
 @cli.command()
 @click.argument('category', required=False)
 def list(category):
     """
-    List assignments by CATEGORY (defaults to 'current')
+    List assignments by CATEGORY (defaults to 'current').
     """
     if not category:
         category = 'current'
     if category == 'current':
-        credentials = get_data_from_file('studentvue_credentials', ',')
-        assignments = studentvue_parser.get_assignments(credentials)
+        assignments = studentvue_parser.get_stored_assignment_data()
         list_assignments(assignments)
     elif category == 'completed':
         assignments = studentvue_parser.get_stored_assignment_data()
@@ -101,88 +133,72 @@ def list(category):
         list_added(assignments)
     else:
         click.echo(
-            '"%s" is not a valid category. The categories are "current" and "completed"' %
-            category)
+            '"{}" is not a valid category. The categories are "current" and "completed"'.format(category))
 
 
 @cli.command()
 @click.argument('id')
 def complete(id):
     """
-    Complete an assignment by assignment ID
+    Complete an assignment by assignment ID.
     """
-    credentials = get_data_from_file('studentvue_credentials', ',')
-    assignments = studentvue_parser.get_assignments(credentials)
-    try:
-        assignments.at[assignments.loc[assignments['Assignment ID'].isin(
-            [id])].index, 'is_completed'] = True
-        update_csv(assignments)
-    except Exception:
-        click.echo('Failed to complete assignment #%s' % id)
-        sys.exit()
-    click.echo('Marked assignment #%s as complete' % id)
+    assignments = studentvue_parser.get_stored_assignment_data()
+    assignments.at[assignments.loc[assignments['Assignment ID'].isin(
+        [id])].index, 'is_completed'] = True
+    update_csv(assignments)
+    click.echo('Marked assignment #{} as complete'.format(id))
 
 
 @cli.command()
 @click.argument('id')
 def incomplete(id):
     """
-    Mark an assignment as incomplete by assignment ID
+    Mark an assignment as incomplete by assignment ID.
     """
-    credentials = get_data_from_file('studentvue_credentials', ',')
-    assignments = studentvue_parser.get_assignments(credentials)
-    try:
-        assignments.at[assignments.loc[assignments['Assignment ID'].isin(
-            [id])].index, 'is_completed'] = False
-        update_csv(assignments)
-    except Exception:
-        click.echo('Failed to mark assignment #%s as incomplete' % id)
-        sys.exit()
-    click.echo('Marked assignment #%s as incomplete' % id)
+    assignments = studentvue_parser.get_stored_assignment_data()
+    assignments.at[assignments.loc[assignments['Assignment ID'].isin(
+        [id])].index, 'is_completed'] = False
+    update_csv(assignments)
+    click.echo('Marked assignment #{} as incomplete'.format(id))
 
 
 @cli.command()
 @click.argument('title')
 @click.argument('date')
-def add(title, date):
+@click.argument('period')
+def add(title, date, period):
     """
-    Add a new assignment with the TITLE and DATE
+    Add a new assignment with the TITLE and DATE (YYYY-MM-DD).
     """
+    try:
+        # Verify format by attempting to strip time
+        datetime.datetime.strptime(date, '%Y-%m-%d')
+    except ValueError:
+        raise ValueError(
+            "Date provided '{}' is not in valid ISO 8601 format (YYYY-MM-DD).".format(date))
 
-    # Get schedule
     credentials = get_data_from_file('studentvue_credentials', ',')
     classes = studentvue_parser.get_schedule(credentials)
-    valid = False
-    while not valid:
-        # Print all the classes
-        for class_ in classes:
-            print(class_)
+    try:
+        period = int(period)
+    except ValueError:
+        raise ValueError(
+            "Period provided '{}' is not a valid number".format(period))
 
-        # Ask which period to add the assignment to
-        class_period_input = input(
-            '\nWhich class period do you want to add the assignment "%s" to? ' %
-            title)
-        try:  # Check if the input can even be converted to an integer!
-            class_period = int(class_period_input)
-        except ValueError:
-            click.echo('"%s" is an invalid input' % class_period)
-        # Check that if the input is an integer, that it is a valid period
-        if class_period > len(classes) or class_period < 1:
-            click.echo("Invalid period.\n")
-        else:
-            valid = True
+    if period > len(classes) or period < 1:
+        raise ValueError(
+            "Period provided '{}' is not a valid class period (1-{}).".format(period, len(classes)))
 
     # Auto generate the class name as if it was from Student Vue
-    teacher_fullname = classes[class_period - 1].teacher.name.split(' ')
-    teacher_label = '{0}, {1}'.format(
+    teacher_fullname = classes[period - 1].teacher.name.split(' ')
+    teacher_label = '{}, {}'.format(
         teacher_fullname[1], teacher_fullname[0][:1])
-    class_name = '{0}  {1}({2})'.format(teacher_label,
-                                        classes[class_period - 1].name,
-                                        classes[class_period - 1].period)
+    class_name = '{}  {}({})'.format(teacher_label,
+                                        classes[period - 1].name,
+                                        classes[period - 1].period)
 
     # Generate a assignment list 8 digit id, and make sure it's unique
-    credentials = get_data_from_file('studentvue_credentials', ',')
-    assignments = studentvue_parser.get_assignments(credentials)
+    assignments = studentvue_parser.get_stored_assignment_data()
     id_unique = False
 
     while not id_unique:
@@ -201,22 +217,23 @@ def add(title, date):
     convert_dict = {'Assignment ID': int}
     assignments = assignments.astype(convert_dict)
     update_csv(assignments)
-    click.echo('Successfully added assignment "{0}"'.format(title))
+    click.echo('Successfully added assignment "{}"'.format(title))
 
 
 def main():
-    # If the credential file does not exist:
+    # Checking that the credentials are all good
     if not os.path.exists(Path('data/studentvue_credentials')):
-        # If we don't even have a data folder:
         if not os.path.exists('data'):
-            # Create one
-            os.mkdir('data')
-        # Now that we know we have a data folder, let's set the credentials
+            try:
+                os.mkdir('data')
+            except IOError as e:
+                raise IOError(
+                    "Failed to create data folder: {}\nTry checking your file permissions.".format(e))
         studentvue_parser.set_credentials()
-
-    # Execute command
+    # Execute commands passed through CLI
     cli(obj={})
 
 
 if __name__ == '__main__':
+    sys.excepthook = exceptionHandler  # Use custom exception handler
     main()

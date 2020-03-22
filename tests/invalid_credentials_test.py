@@ -1,22 +1,23 @@
-import os
-import subprocess
+import studentvue_parser
 import sys
+from io import StringIO
+import pytest
 
 sys.path.append('')
-import assignment_list
 
 
-def test_answer():
-    if not os.path.exists('data'):
-        os.mkdir('data')
-    file = assignment_list.open_data('studentvue_credentials', 'r')
-    contents = file.read()
-    file.close()
-    file = assignment_list.open_data('studentvue_credentials', 'w+')
-    file.close()
-    result = subprocess.run(
-        ['python3', 'assignment_list.py', 'list'], stdout=subprocess.PIPE)
-    file = assignment_list.open_data('studentvue_credentials', 'w+')
-    file.write(contents)
-    file.close()
-    assert "python assignment_list.py reset" in result.stdout.decode("utf-8")
+class Capturing(list):
+    def __enter__(self):
+        self._stdout = sys.stdout
+        sys.stdout = self._stringio = StringIO()
+        return self
+
+    def __exit__(self, *args):
+        self.extend(self._stringio.getvalue().splitlines())
+        del self._stringio    # free up some memory
+        sys.stdout = self._stdout
+
+
+def test_answer(capsys):
+    with pytest.raises(SystemExit):
+        studentvue_parser.authenticate(["3123", "pass", "w"])

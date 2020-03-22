@@ -36,26 +36,29 @@ def get_stored_assignment_data():
     return stored_assignments
 
 
-def get_assignments(credentials):
-    assignments = get_stored_assignment_data()
-    # Login to Student Vue
+def authenticate(credentials):
     try:
         sv = StudentVue(credentials[0], credentials[1], credentials[2])
-    except IndexError:
+        return sv
+    except Exception:
         click.echo(
             'Invalid credentials. You might want to use:\n   python assignment_list.py reset')
         sys.exit()
+
+
+def get_assignments(credentials):
+    assignments = get_stored_assignment_data()
+    sv = authenticate(credentials)
     try:
         studentvue_assignments = sv.get_assignments()
     except Exception:
         click.echo(
             'Failed to get Student Vue assignments... Please see https://github.com/kajchang/StudentVue for help on '
             'this issue.')
-        sys.exit()
+        raise
     found_duplicate = False
     for sv_assignment in studentvue_assignments:
-        setattr(sv_assignment, 'date', str(sv_assignment.date.day) + '/' +
-                str(sv_assignment.date.month) + '/' + str(sv_assignment.date.year))
+        setattr(sv_assignment, 'date', sv_assignment.date)
         for assignment_id in assignments['Assignment ID']:
             if sv_assignment.assignment_id == assignment_id:
                 found_duplicate = True
@@ -75,13 +78,7 @@ def get_assignments(credentials):
 
 
 def get_schedule(credentials):
-    # Login to Student Vue
-    try:
-        sv = StudentVue(credentials[0], credentials[1], credentials[2])
-    except IndexError:
-        click.echo(
-            'Invalid credentials. You can reset your credentials with:\n   python assignment_list.py reset')
-        sys.exit()
+    sv = authenticate(credentials)
     return sv.get_schedule()
 
 
