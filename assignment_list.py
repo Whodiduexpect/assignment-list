@@ -109,12 +109,20 @@ def add(title, date, period):
     """
     Add a new assignment with the TITLE and DATE (YYYY-MM-DD).
     """
+    if date == "today":
+        date = datetime.datetime.now().date().isoformat()
+    elif date == "yesterday":
+        date = datetime.datetime.now() - datetime.timedelta(days=1)
+        date = date.date().isoformat()
+    elif date == "tomorrow":
+        date = datetime.datetime.now() + datetime.timedelta(days=1)
+        date = date.date().isoformat()
     try:
         # Verify format by attempting to strip time
         datetime.datetime.strptime(date, '%Y-%m-%d')
     except ValueError:
         raise ValueError(
-            "Date provided '{}' is not in valid ISO 8601 format (YYYY-MM-DD).".format(date))
+            "Date provided '{}' is not in valid ISO format (YYYY-MM-DD).".format(date))
 
     credentials = get_data_from_file('studentvue_credentials', ',')
     classes = studentvue_parser.get_schedule(credentials)
