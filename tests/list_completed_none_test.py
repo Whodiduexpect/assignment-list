@@ -3,7 +3,6 @@ from io import StringIO
 
 import pandas as pd
 
-sys.path.append("")
 import assignment_list
 
 

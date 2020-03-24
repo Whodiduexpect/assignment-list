@@ -3,8 +3,6 @@ import sys
 from io import StringIO
 import pytest
 
-sys.path.append('')
-
 
 class Capturing(list):
     def __enter__(self):
@@ -19,5 +17,5 @@ class Capturing(list):
 
 
 def test_answer(capsys):
-    with pytest.raises(SystemExit):
+    with pytest.raises(ValueError):
         studentvue_parser.authenticate(["3123", "pass", "w"])

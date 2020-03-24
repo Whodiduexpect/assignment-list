@@ -4,8 +4,6 @@ from io import StringIO
 
 import pandas as pd
 
-sys.path.append("")
-
 
 class Capturing(list):
     def __enter__(self):

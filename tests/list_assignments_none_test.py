@@ -3,7 +3,6 @@ from io import StringIO
 
 import pandas as pd
 
-sys.path.append("")
 import assignment_list
 
 
@@ -20,8 +19,11 @@ class Capturing(list):
 
 
 def test_answer():
-    assignments = pd.DataFrame({'Assignment ID': [], 'Class Name': [], 'Due Date': [
-    ], 'Assignment': [], 'is_completed': []})
+    assignments = pd.DataFrame({'Assignment ID': [],
+                                'Class Name': [],
+                                'Due Date': [],
+                                'Assignment': [],
+                                'is_completed': []})
     with Capturing() as output:
         assignment_list.list_assignments(assignments)
     assert output == ['No assignments to do!']

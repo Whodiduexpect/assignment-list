@@ -13,12 +13,16 @@ import studentvue_parser
 # Exception Handler
 
 
-def exceptionHandler(exception_type, exception, traceback, debug_hook=sys.excepthook):
+def exceptionHandler(
+        exception_type,
+        exception,
+        traceback,
+        debug_hook=sys.excepthook):
     if debug_mode:
         print('\n*** Error:')
         debug_hook(exception_type, exception, traceback)
     else:
-        print("\t%s: %s" % (exception_type.__name__, exception))
+        print("\t{}: {}".format(exception_type.__name__, exception))
 
 # Define functions
 
@@ -83,7 +87,10 @@ def create_if_not_exist(filename):
 
 # Define commands
 @click.group()
-@click.option('--debug/--no-debug', default=False, help="Enable/disable debug mode.")
+@click.option(
+    '--debug/--no-debug',
+    default=False,
+    help="Enable/disable debug mode.")
 def cli(debug):
     """
     A Student Vue assignment manager
@@ -92,74 +99,6 @@ def cli(debug):
     """
     global debug_mode
     debug_mode = debug
-
-
-@cli.command()
-def reset():
-    """
-    Reset Student Vue credentials.
-    """
-    studentvue_parser.set_credentials()
-
-
-@cli.command()
-def update():
-    """
-    Update database with the latest data from Student Vue.
-    """
-    click.echo("Updating local assignment database...")
-    credentials = get_data_from_file('studentvue_credentials', ',')
-    assignments = studentvue_parser.get_assignments(credentials)
-    update_csv(assignments)
-    click.echo("Synced assignments successfully.")
-
-
-@cli.command()
-@click.argument('category', required=False)
-def list(category):
-    """
-    List assignments by CATEGORY (defaults to 'current').
-    """
-    if not category:
-        category = 'current'
-    if category == 'current':
-        assignments = studentvue_parser.get_stored_assignment_data()
-        list_assignments(assignments)
-    elif category == 'completed':
-        assignments = studentvue_parser.get_stored_assignment_data()
-        list_completed(assignments)
-    elif category == 'added':
-        assignments = studentvue_parser.get_stored_assignment_data()
-        list_added(assignments)
-    else:
-        click.echo(
-            '"{}" is not a valid category. The categories are "current" and "completed"'.format(category))
-
-
-@cli.command()
-@click.argument('id')
-def complete(id):
-    """
-    Complete an assignment by assignment ID.
-    """
-    assignments = studentvue_parser.get_stored_assignment_data()
-    assignments.at[assignments.loc[assignments['Assignment ID'].isin(
-        [id])].index, 'is_completed'] = True
-    update_csv(assignments)
-    click.echo('Marked assignment #{} as complete'.format(id))
-
-
-@cli.command()
-@click.argument('id')
-def incomplete(id):
-    """
-    Mark an assignment as incomplete by assignment ID.
-    """
-    assignments = studentvue_parser.get_stored_assignment_data()
-    assignments.at[assignments.loc[assignments['Assignment ID'].isin(
-        [id])].index, 'is_completed'] = False
-    update_csv(assignments)
-    click.echo('Marked assignment #{} as incomplete'.format(id))
 
 
 @cli.command()
@@ -194,8 +133,8 @@ def add(title, date, period):
     teacher_label = '{}, {}'.format(
         teacher_fullname[1], teacher_fullname[0][:1])
     class_name = '{}  {}({})'.format(teacher_label,
-                                        classes[period - 1].name,
-                                        classes[period - 1].period)
+                                     classes[period - 1].name,
+                                     classes[period - 1].period)
 
     # Generate a assignment list 8 digit id, and make sure it's unique
     assignments = studentvue_parser.get_stored_assignment_data()
@@ -218,6 +157,74 @@ def add(title, date, period):
     assignments = assignments.astype(convert_dict)
     update_csv(assignments)
     click.echo('Successfully added assignment "{}"'.format(title))
+
+
+@cli.command()
+@click.argument('id')
+def complete(id):
+    """
+    Complete an assignment by assignment ID.
+    """
+    assignments = studentvue_parser.get_stored_assignment_data()
+    assignments.at[assignments.loc[assignments['Assignment ID'].isin(
+        [id])].index, 'is_completed'] = True
+    update_csv(assignments)
+    click.echo('Marked assignment #{} as complete'.format(id))
+
+
+@cli.command()
+@click.argument('id')
+def incomplete(id):
+    """
+    Mark an assignment as incomplete by assignment ID.
+    """
+    assignments = studentvue_parser.get_stored_assignment_data()
+    assignments.at[assignments.loc[assignments['Assignment ID'].isin(
+        [id])].index, 'is_completed'] = False
+    update_csv(assignments)
+    click.echo('Marked assignment #{} as incomplete'.format(id))
+
+
+@cli.command()
+@click.argument('category', required=False)
+def list(category='current'):
+    """
+    List assignments by CATEGORY (defaults to 'current').
+    """
+    if not category:
+        category = 'current'
+    if category == 'current':
+        assignments = studentvue_parser.get_stored_assignment_data()
+        list_assignments(assignments)
+    elif category == 'completed':
+        assignments = studentvue_parser.get_stored_assignment_data()
+        list_completed(assignments)
+    elif category == 'added':
+        assignments = studentvue_parser.get_stored_assignment_data()
+        list_added(assignments)
+    else:
+        raise ValueError(
+            '"{}" is not a valid category. The categories are "current", "completed" and "added".'.format(category))
+
+
+@cli.command()
+def reset():
+    """
+    Reset Student Vue credentials.
+    """
+    studentvue_parser.set_credentials()
+
+
+@cli.command()
+def update():
+    """
+    Update database with the latest data from Student Vue.
+    """
+    click.echo("Updating local assignment database...")
+    credentials = get_data_from_file('studentvue_credentials', ',')
+    assignments = studentvue_parser.get_assignments(credentials)
+    update_csv(assignments)
+    click.echo("Synced assignments successfully.")
 
 
 def main():

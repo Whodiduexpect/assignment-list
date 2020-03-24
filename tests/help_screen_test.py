@@ -1,8 +1,6 @@
 import os
 import subprocess
-import sys
 
-sys.path.append("")
 import assignment_list
 
 

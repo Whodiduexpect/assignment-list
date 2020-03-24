@@ -8,6 +8,19 @@ from studentvue import StudentVue
 
 import assignment_list
 
+# Exception Handler
+
+
+def exceptionHandler(
+        exception_type,
+        exception,
+        traceback,
+        debug_hook=sys.excepthook):
+    print('\n*** Error:')
+    debug_hook(exception_type, exception, traceback)
+
+# Define functions
+
 
 def set_credentials():
     assignment_list.create_if_not_exist('studentvue_credentials')
@@ -25,12 +38,13 @@ def get_stored_assignment_data():
     # Create CSV file if it doesn't exist
     assignment_list.create_if_not_exist('studentvue_assignments.csv')
     try:
-        stored_assignments = pd.read_csv(Path('data/studentvue_assignments.csv'),
-                                         sep='/')
+        stored_assignments = pd.read_csv(
+            Path('data/studentvue_assignments.csv'), sep='/')
     except pd.io.common.EmptyDataError:
         stored_assignments = pd.DataFrame({'Assignment ID': [], 'Class Name': [], 'Due Date': [
         ], 'Assignment': [], 'is_completed': []})
-        click.echo('Invalid or empty file detected... discarding file')
+        click.echo(
+            '[Warning] Invalid or empty file detected... discarding file')
     convert_dict = {'Assignment ID': int}
     stored_assignments = stored_assignments.astype(convert_dict)
     return stored_assignments
@@ -41,9 +55,9 @@ def authenticate(credentials):
         sv = StudentVue(credentials[0], credentials[1], credentials[2])
         return sv
     except Exception:
-        click.echo(
-            'Invalid credentials. You might want to use:\n   python assignment_list.py reset')
-        sys.exit()
+        raise ValueError(
+            'Invalid credentials. You might want to use:'
+            '\n   python assignment_list.py reset')
 
 
 def get_assignments(credentials):
@@ -51,11 +65,11 @@ def get_assignments(credentials):
     sv = authenticate(credentials)
     try:
         studentvue_assignments = sv.get_assignments()
-    except Exception:
-        click.echo(
-            'Failed to get Student Vue assignments... Please see https://github.com/kajchang/StudentVue for help on '
-            'this issue.')
-        raise
+    except Exception as e:
+        raise LookupError(
+            'Failed to get Student Vue assignments: {}'
+            '\nPlease see https://github.com/kajchang/StudentVue for help on '
+            'this issue.'.format(e))
     found_duplicate = False
     for sv_assignment in studentvue_assignments:
         setattr(sv_assignment, 'date', sv_assignment.date)
